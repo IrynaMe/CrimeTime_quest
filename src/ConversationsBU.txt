@@ -1,0 +1,29 @@
+String[] sisterAnswers ={
+                personaggi.get("sister").getName()+": The last time I saw " +personaggi.get("victim").getName()+" on the day she was killed, " +
+                        ", in the morning, before she went to work. ",
+                personaggi.get("sister").getName()+": "+personaggi.get("victim").getName()+" She got on well with everyone. However...A couple of days before this tragedy" +
+                        "\n she told me that someone in her close surrounding is not the person that it seemed to be.",
+                personaggi.get("sister").getName()+": "+personaggi.get("victim").getName()+ " didn't mention meeting anyone, but she received a message and said she would come home late. ",
+                personaggi.get("sister").getName()+": Were you two close ",
+                personaggi.get("sister").getName()+": Between 12:00 - 1:00 a.m. I was sleeping at home, alone.",
+                personaggi.get("sister").getName()+": "+personaggi.get("victim").getName()+ " was very excited to have this picture for the exhibition, but a day before this tragedy" +
+                        "\nshe mentioned that something didn't add up and probably they should postpone the exhibition opening. ",
+                personaggi.get("sister").getName()+": I know from "+personaggi.get("victim").getName()+"that some painting restorers work with lead dust, but her work wasn't connected with restoring. " +
+                        "\nI have no idea how she could get this intoxication. ",
+
+
+
+        };
+
+
+        String[] sisterQuestions={
+                        personaggi.get("detective").getName()+": When did you see " +personaggi.get("victim").getName()+ " the last time?",
+                        personaggi.get("detective").getName()+": Do you know someone who could  have intention to harm "+personaggi.get("victim").getName()+"?",
+                        personaggi.get("detective").getName()+": Was she going to meet someone on the day of the crime? ",
+                        personaggi.get("detective").getName()+": Yes, "+personaggi.get("victim").getName()+" and I had very good relations. ",
+                        personaggi.get("detective").getName()+": Where were you between 12:00 - 1:00 a.m.? And who was with you?",
+                        personaggi.get("detective").getName()+": Did "+personaggi.get("victim").getName()+" shared any information about the stolen picture?",
+                        personaggi.get("detective").getName()+": What do you think about the traces of lead intoxication in "+personaggi.get("victim").getName()+"'s blood?",
+
+
+                };
