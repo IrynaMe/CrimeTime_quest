@@ -9,15 +9,15 @@ public interface CanCrimeTime {
 
     void goGallery();
 
-    void goAssistant();
+    void goAssistant(LocalTime time);
 
     void goCollector();
 
-    void goBoss();
+    void goBoss(LocalTime time);
 
     void goVictim();
 
-    void goSister();
+    void goSister(LocalTime time);
 
 
     void seeEvidence();

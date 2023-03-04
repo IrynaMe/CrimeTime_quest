@@ -1,23 +1,21 @@
 System.out.println("--------------------------------------------");
+System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
-public static String caesarCipher(String message) {
-    String encrypted = "";
-    for (int i = 0; i < message.length(); i++) {
-        char ch = message.charAt(i);
-        if (Character.isLetter(ch)) {
-            if (ch == 'z') {
-                encrypted += 'a';
-            } else if (ch == 'Z') {
-                encrypted += 'A';
-            } else {
-                encrypted += (char) (ch + 1);
-            }
-        } else {
-            encrypted += ch;
-        }
-    }
-    return encrypted;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 victim=Ruth

@@ -62,7 +62,7 @@ public class Utility {
         Person grandmother = new Person(properties.getProperty("grandmother").toUpperCase());
         Person collector = new Person(properties.getProperty("collector").toUpperCase());
         Person victim = new Person(properties.getProperty("victim").toUpperCase());
-        Person policeOfficer = new Person();
+        Person policeOfficer = new Person(properties.getProperty("police").toUpperCase());
         personaggi = new HashMap<>();
         personaggi.put("detective", detective);
         personaggi.put("victim", victim);
