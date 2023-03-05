@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -9,8 +10,13 @@ public class Puzzles {
     private String completeCode = "| 4 | 5 | 6 | 7 | 8 | 9 |\n|61 |52 |63 |94 |46 | X |";
 
     private String messageToEncode = "Meet me at the gallery at midnight, it's important";
+    private String answerPuzzleLocker="18";
+    private String answerPuzzleDecodeMessage=caesarCipher(messageToEncode).toUpperCase();
+    private String answerPuzzleClock="00:45";
 
-    public static String caesarCipher(String message) {
+    private String answerPuzzleWhoTellsTruth="BEN";
+
+    public String caesarCipher(String message) {
         String encrypted = "";
         for (int i = 0; i < message.length(); i++) {
             char ch = message.charAt(i);
@@ -42,25 +48,45 @@ public class Puzzles {
         System.out.println();
         System.out.println("According to " + personaggi.get("grandmother").getName() + ", ");
         System.out.println("the clock goes fast: it adds 30 extra minutes to every passed hour. " +
-                "\nBut every time at 12:00, 3:00, 6:00 and 9:00 (both a.m or p.m.), " +
+                "\nBut every time at 00:00, 3:00, 6:00, 9:00, 12:00, 15:00, 18:00, 21:00, " +
                 "\nthe clock freezes and doesn't work for 2 hours. " +
                 "\nOn the day of the murder " + personaggi.get("grandmother").getName() + " set the right time on the clock at 1:00 p.m. " +
-                "\nWhat was the real time when the clock showed 9:45 p.m., when " + personaggi.get("assistant").getName() + " came back home?");
+                "\nWhat was the real time when the clock showed 21:45 p.m., when " + personaggi.get("assistant").getName() + " came back home?");
         System.out.println();
-        System.out.println("Input your answer in format: hh:mm, ex. 09:45 | or input M -> go back to menu");
+        System.out.println("Input your answer in format: hh:mm, ex. 21:45 | or input M -> go back to menu");
 
     }
 
-    public void lockerCode() {
+    public boolean lockerCode() {
         System.out.println();
+        String answer = "";
+        boolean isSolved=false;
         System.out.println("| 4 | 5 | 6 | 7 | 8 | 9 |");
         System.out.println("|61 |52 |63 |94 |46 | X |");
         System.out.println("What number should be instead of X?");
-        System.out.println("Input your answer | or input M -> go back to menu");
+        do {
+            System.out.println("Input your answer | or input L -> to try later");
+            answer = scanner.next().toUpperCase();
+            if (answer.equals(answerPuzzleLocker)){
+                System.out.println("Sorry, the answer is not correct");
+            }
+        } while (answer.equals("L") || answer.equals(answerPuzzleLocker));
+        if (answer.equals(answerPuzzleLocker)) {
+            isSolved=true;
+            System.out.println("Congratulations! You solved the puzzle!");
+            System.out.println(answerPuzzleLocker);
+
+        } else {
+            isSolved=false;
+            System.out.println("See you next time!");
+        }
+        return isSolved;
     }
 
 
-    public void whoTellsTruth() {
+    public boolean whoTellsTruth() {
+       boolean isSolved=false;
+        String answer="";
         System.out.println();
         System.out.println("Ben, Pit and Sam where near the gallery at the time of the murder.");
         System.out.println("One of them saw someone going out of the gallery.");
@@ -70,6 +96,24 @@ public class Puzzles {
         System.out.println("You know, that two of them are definitely lying. ");
         System.out.println("You have to find out who of them is the witness to interrogate him.");
         System.out.println("Input your answer | or input M -> go back to menu");
+        do {
+            System.out.println("Input your answer | or input L -> to try later");
+            answer = scanner.next().toUpperCase();
+            if (answer.equals(answerPuzzleWhoTellsTruth)){
+                System.out.println("Sorry, the answer is not correct");
+            }
+        } while (answer.equals("L") || answer.equals(answerPuzzleWhoTellsTruth));
+        if (answer.equals(answerPuzzleWhoTellsTruth)) {
+            isSolved=true;
+            System.out.println("Congratulations! You solved the puzzle!");
+            System.out.println(answerPuzzleLocker);
+
+        } else {
+            isSolved=false;
+            System.out.println("See you next time!");
+        }
+        return isSolved;
+
     }
 
     public void laptopPassword() {
@@ -87,5 +131,25 @@ public class Puzzles {
 
     public String getCompleteCode() {
         return completeCode;
+    }
+
+    public String getMessageToEncode() {
+        return messageToEncode;
+    }
+
+    public String getAnswerPuzzleLocker() {
+        return answerPuzzleLocker;
+    }
+
+    public String getAnswerPuzzleDecodeMessage() {
+        return answerPuzzleDecodeMessage;
+    }
+
+    public String getAnswerPuzzleClock() {
+        return answerPuzzleClock;
+    }
+
+    public String getAnswerPuzzleWhoTellsTruth() {
+        return answerPuzzleWhoTellsTruth;
     }
 }

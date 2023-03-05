@@ -1,6 +1,5 @@
 System.out.println("--------------------------------------------");
 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
 
 
@@ -9,11 +8,77 @@ System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
 
 
+public class TicTacToeGrid {
+    public static void main(String[] args) {
+        drawGrid();
+    }
+
+    public static void drawGrid() {
+        // Define the horizontal and vertical lines of the grid
+        String horizontalLine = " --- --- --- ";
+        String verticalLine = "|   |   |   |";
+
+        // Draw the grid by printing the lines to the console
+        for (int i = 0; i < 3; i++) {
+            System.out.println(horizontalLine);
+            System.out.println(verticalLine);
+            System.out.println(verticalLine);
+            System.out.println(verticalLine);
+        }
+        System.out.println(horizontalLine);
+    }
+}
+
+
+public class TicTacToeGrid {
+    public static void main(String[] args) {
+        drawGrid();
+    }
+
+    public static void drawGrid() {
+        // Define the horizontal and vertical lines of the grid
+        String horizontalLine = "-----------";
+        String verticalLine = " | ";
+
+        // Draw the grid by printing the lines to the console
+        System.out.println(verticalLine + verticalLine + verticalLine);
+        System.out.println(horizontalLine);
+        System.out.println(verticalLine + verticalLine + verticalLine);
+        System.out.println(horizontalLine);
+        System.out.println(verticalLine + verticalLine + verticalLine);
+    }
+}
 
 
 
 
 
+  boolean flag = choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4") || choice.equals("5");
+            switch (choice) {
+                case "1":
+                    goSister(currentTime);
+                    break;
+                case "2":
+                    goBoss(currentTime);
+                    break;
+                case "3":
+                    goAssistant(currentTime);
+                    break;
+                case "4":
+                    seeNotes();
+                    break;
+                case "5":
+                    seeEvidence();
+                    break;
+                case "6":
+                    solvePuzzle();
+                    break;
+                default:
+                    System.out.println();
+                    System.out.println("*** Input error: type a number between 1 and 5 ***");
+            }
+
+        } while (!flag);
 
 
 

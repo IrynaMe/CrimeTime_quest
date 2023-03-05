@@ -12,18 +12,32 @@ public class Person {
     private boolean askedSister;
     private boolean askedBoss;
     private boolean askedAssistant;
-    private boolean askedGrandma;
+    private boolean askedGrandmother;
+
+    //talkSister&&talkBoss->possible to visit assistant
+    private boolean talkedSister;
+    private boolean talkedBoss;
+    private boolean canGoRoomAssistant;
+    //unlock options
+    private boolean canMeetGrandmother;
+    private boolean canOpenGarage;
+    private boolean witnessBoss;
+    private boolean moneyAssistant;
+    private boolean messageAssistant;
+    private boolean arrestedBoss;
 
     //after array with questions is empty, a person takes action, that gives a clue
     private boolean actionBoss;
     private boolean actionAssistant;
     private boolean actionGrandmother;
+    private boolean actionSister;
 
-    //2 pieces of code, both should be collected
-    private boolean codeFromSister;
-    private boolean codeFromAssistant;
+    //unlock puzzles
+    private boolean codeFromSister;//after last question in array sisterQuestions
+    private boolean codeFromAssistant;//after detective finished questions in array assistantQuestions and follows him to garage
     private boolean garageUnlocked;//after that grandmother remembers about the clock
-    private boolean puzzle;
+    private boolean puzzleLocker;//after detective has 2 pieces of instruction->CodeFromSister+codeFromAssistant
+    private boolean puzzleWhoTellsTruth;//after boss talks with collector and detective visits sister
 
     //constructors
     public Person() {
@@ -61,12 +75,20 @@ public class Person {
         this.askedAssistant = askedAssistant;
     }
 
-    public boolean isAskedGrandma() {
-        return askedGrandma;
+    public boolean isAskedGrandmother() {
+        return askedGrandmother;
     }
 
-    public void setAskedGrandma(boolean askedGrandma) {
-        this.askedGrandma = askedGrandma;
+    public void setAskedGrandmother(boolean askedGrandmother) {
+        this.askedGrandmother = askedGrandmother;
+    }
+
+    public boolean isCanGoRoomAssistant() {
+        return canGoRoomAssistant;
+    }
+
+    public void setCanGoRoomAssistant(boolean canGoRoomAssistant) {
+        this.canGoRoomAssistant = canGoRoomAssistant;
     }
 
     public boolean isAskedSister() {
@@ -154,16 +176,96 @@ public class Person {
         return garageUnlocked;
     }
 
-    public boolean isPuzzle() {
-        return puzzle;
+    public boolean isPuzzleLocker() {
+        return puzzleLocker;
     }
 
-    public void setPuzzle(boolean puzzle) {
-        this.puzzle = puzzle;
+    public void setPuzzleLocker(boolean puzzleLocker) {
+        this.puzzleLocker = puzzleLocker;
     }
 
     public void setGarageUnlocked(boolean garageUnlocked) {
         this.garageUnlocked = garageUnlocked;
+    }
+
+    public boolean isActionSister() {
+        return actionSister;
+    }
+
+    public void setActionSister(boolean actionSister) {
+        this.actionSister = actionSister;
+    }
+
+    public boolean isCanMeetGrandmother() {
+        return canMeetGrandmother;
+    }
+
+    public void setCanMeetGrandmother(boolean canMeetGrandmother) {
+        this.canMeetGrandmother = canMeetGrandmother;
+    }
+
+    public boolean isTalkedSister() {
+        return talkedSister;
+    }
+
+    public void setTalkedSister(boolean talkedSister) {
+        this.talkedSister = talkedSister;
+    }
+
+    public boolean isTalkedBoss() {
+        return talkedBoss;
+    }
+
+    public void setTalkedBoss(boolean talkedBoss) {
+        this.talkedBoss = talkedBoss;
+    }
+
+    public boolean isPuzzleWhoTellsTruth() {
+        return puzzleWhoTellsTruth;
+    }
+
+    public void setPuzzleWhoTellsTruth(boolean puzzleWhoTellsTruth) {
+        this.puzzleWhoTellsTruth = puzzleWhoTellsTruth;
+    }
+
+    public boolean isCanOpenGarage() {
+        return canOpenGarage;
+    }
+
+    public void setCanOpenGarage(boolean canOpenGarage) {
+        this.canOpenGarage = canOpenGarage;
+    }
+
+    public boolean isWitnessBoss() {
+        return witnessBoss;
+    }
+
+    public void setWitnessBoss(boolean witnessBoss) {
+        this.witnessBoss = witnessBoss;
+    }
+
+    public boolean isMoneyAssistant() {
+        return moneyAssistant;
+    }
+
+    public void setMoneyAssistant(boolean moneyAssistant) {
+        this.moneyAssistant = moneyAssistant;
+    }
+
+    public boolean isMessageAssistant() {
+        return messageAssistant;
+    }
+
+    public void setMessageAssistant(boolean messageAssistant) {
+        this.messageAssistant = messageAssistant;
+    }
+
+    public boolean isArrestedBoss() {
+        return arrestedBoss;
+    }
+
+    public void setArrestedBoss(boolean arrestedBoss) {
+        this.arrestedBoss = arrestedBoss;
     }
 
     @Override
