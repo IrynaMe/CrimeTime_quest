@@ -1,0 +1,132 @@
+      public void goGrandmother(LocalTime timeStart) {
+          //limit for 3 available questions at a time, the last question can be asked only with boolean condition
+          //ask the last question only 2 or more min after the last question
+          Duration pauseTalk = Duration.ZERO;
+          pauseTalk = Duration.between(personaggi.get("detective").getTimeAskedGrandmother(), timeStart);
+          long minutesPause = pauseTalk.toMinutes();
+          if (minutesPause < BREAKTIME && grandmotherQuestions.length > 0) {
+              System.out.println();
+              System.out.println("*** It seems that " + personaggi.get("grandmother").getName() + " is still busy, come back later. ***");
+              menu();
+              String choiceStr = "";
+              int choice = -1;
+              System.out.println();
+              //reset questions counter if 2 or more minutes passed after reaching the limit for questions
+              if (personaggi.get("detective").isAskedGrandmother()) {
+                  countQuestionsGrandmother = 1;
+                  personaggi.get("detective").setAskedGrandmother(false);
+              }
+              while (countQuestionsGrandmother < 3 && personaggi.get("detective").isAskedGrandmother() == false) {
+                  if (grandmotherQuestions.length > 0) {
+                      int index = 1;
+                      System.out.println();
+
+                      //if the method is recalled 2 or more min after the last question
+                      System.out.println();
+                      System.out.println("--------------------------------------------");
+                      System.out.println("*** You came to visit " + personaggi.get("grandmother").getName() + " ***");
+
+                      System.out.println("*** What would you like to ask? ***");
+                      //print the list of questions except ones that need to be asked later
+                      for (String element : grandmotherQuestions) {
+                          if ((!element.contains("Can I take a look at")||element.contains("your clock"))){//&&personaggi.get("detective").isCanGoRoomAssistant()==false
+                              System.out.println((index++) + " -> " + element);
+                          }
+                      }
+                      //control if choice is valid
+                      boolean flag;
+                      boolean isDigit = false;
+                      do {
+                          System.out.println();
+                          System.out.println("*** Input your choice  ***");
+                          System.out.println("1 - " + (grandmotherQuestions.length-1) + " -> Ask the question");
+                          System.out.println("0 -> Go back to the menu");
+                          choiceStr = scanner.next();
+                          for (char c : choiceStr.toCharArray()) {
+                              if (!Character.isDigit(c)) {
+                                  isDigit = false;
+                                  break;
+                              } else {
+                                  isDigit = true;
+                              }
+                          }
+                          if (isDigit) {
+                              choice = Integer.parseInt(choiceStr) - 1;
+                          }
+                          if (choice == grandmotherQuestions.length-1) {//&&personaggi.get("detective").isCanGoRoomAssistant()==false
+                              flag=false;
+                          } else flag = (isDigit && (choice <= grandmotherQuestions.length - 1 || choice == -1));
+                          if (!flag) {
+                              System.out.println("Input error, try again");
+                          }
+                      } while (!flag);
+                      //detective asks a question
+                      String givenAnswer="";
+                      if (choice != -1) {
+                          //print the chosen question and the answer
+                          System.out.println();
+                          System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                          System.out.println(personaggi.get("detective").getName() + ": " + grandmotherQuestions[choice]);
+                          System.out.println(givenAnswer);
+                          System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                          //count questions
+                          countQuestionsGrandmother++;
+                          //put the answer to the ArrayList-> to use in seeNotes();
+                          answersReceived.add(givenAnswer);
+                          //set boolean for grandmother to take action after all the questions from the array are asked
+                          if (grandmotherQuestions.length == 1) {
+                              personaggi.get("detective").setActionGrandmother(true);
+                          }
+                          //if detective goes to the assistant's room
+                          if (choice==grandmotherQuestions.length-2){
+                              conversations.findSafeBox(personaggi);
+                              personaggi.get("detective").setPuzzleSafeBox(true);
+                              puzzles.safeBoxCode();
+                          }
+                          //delete the used question and answer from the arrays;
+                          if (choice < grandmotherQuestions.length-2){
+                              for (int i = choice; i < grandmotherQuestions.length-2; i++) {
+                                  grandmotherQuestions[i] = grandmotherQuestions[i + 1];
+                              }
+                              grandmotherQuestions = Arrays.copyOf(grandmotherQuestions, grandmotherQuestions.length - 1);
+                              for (int i = choice; i < grandmotherAnswers.length - 1; i++) {
+                                  grandmotherAnswers[i] = grandmotherAnswers[i + 1];
+                              }
+                              grandmotherAnswers = Arrays.copyOf(grandmotherAnswers, grandmotherAnswers.length - 1);
+                          }
+
+                      } else {
+                          menu();
+                      }
+                  }
+                  /*else if (personaggi.get("detective").isCanGoRoomAssistant()) {
+                      //can  ask the last question after first 3 questions from the array are asked
+                      System.out.println();
+                      System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                      System.out.println();
+                      System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                      System.out.println();
+                  }*/
+                  else {
+                      //if there is 1 last question in the array
+                      System.out.println();
+                      System.out.println("*** " + personaggi.get("grandmother").getName() + ": has no more valuable information to share. ***");
+                      menu();
+                  }
+              }
+              //when detective reached the limit for questions
+              if (countQuestionsGrandmother >= 3) {
+                  personaggi.get("detective").setAskedGrandmother(true);
+                  //registrate the time when limit for questions was reached
+                  personaggi.get("detective").setTimeAskedGrandmother(LocalTime.now());
+                  System.out.println();
+                  System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                  System.out.println(personaggi.get("grandmother").getName() + ": Sorry darling, I'm so tired, I need to sleep. Come back later, please");
+                  System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+            //      personaggi.get("detective").setCanGoRoomAssistant(true);
+                  menu();
+              }
+              menu();
+          }
+      }
