@@ -5,7 +5,7 @@ public interface CanCrimeTime {
 
     void talkPerson();
 
-    void solvePuzzle();
+    void solvePuzzles();
 
     void goGallery();
 

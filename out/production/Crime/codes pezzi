@@ -4,54 +4,91 @@ System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
 
 
+===================triangle
+    for (int i=0; i<3;i++) {
+             System.out.println("     *      #      .  ");
+             System.out.println("    ***    ###    ... ");
+             System.out.println("   *****  #####  .....");
+             if (i<2){
+                 System.out.println("+");
+             }
+
+         }
+         System.out.println("   ___________________");
+         System.out.println();
+         System.out.println("     .      .      .  ");
+         System.out.println("    ...    ...    ... ");
+         System.out.println("   .....  .....  .....");
+
+=====================
 
 
+ public static void main(String[] args) {
+        int gridSize = 3; // Number of squares in each row/column
+        int subSquareSize = 1; // Number of subsquares in each square
 
+        for (int i = 0; i < gridSize; i++) {
+            // Draw the top edge of each square
+            for (int j = 0; j < gridSize; j++) {
+                System.out.print("+---");
+            }
+            System.out.println("+");
 
-public class TicTacToeGrid {
-    public static void main(String[] args) {
-        drawGrid();
-    }
-
-    public static void drawGrid() {
-        // Define the horizontal and vertical lines of the grid
-        String horizontalLine = " --- --- --- ";
-        String verticalLine = "|   |   |   |";
-
-        // Draw the grid by printing the lines to the console
-        for (int i = 0; i < 3; i++) {
-            System.out.println(horizontalLine);
-            System.out.println(verticalLine);
-            System.out.println(verticalLine);
-            System.out.println(verticalLine);
+            // Draw the middle rows of each square
+            for (int k = 0; k < subSquareSize; k++) {
+                for (int j = 0; j < gridSize; j++) {
+                    System.out.print("|   ");
+                }
+                System.out.println("|");
+            }
         }
-        System.out.println(horizontalLine);
-    }
-}
 
-
-public class TicTacToeGrid {
-    public static void main(String[] args) {
-        drawGrid();
+        // Draw the bottom edge of the last square
+        for (int j = 0; j < gridSize; j++) {
+            System.out.print("+---");
+        }
+        System.out.println("+");
     }
 
-    public static void drawGrid() {
-        // Define the horizontal and vertical lines of the grid
-        String horizontalLine = "-----------";
-        String verticalLine = " | ";
-
-        // Draw the grid by printing the lines to the console
-        System.out.println(verticalLine + verticalLine + verticalLine);
-        System.out.println(horizontalLine);
-        System.out.println(verticalLine + verticalLine + verticalLine);
-        System.out.println(horizontalLine);
-        System.out.println(verticalLine + verticalLine + verticalLine);
-    }
-}
 
 
+===
+with letters:
+  int gridSize = 3; // Number of squares in each row/column
+        int subSquareSize = 1; // Number of subsquares in each square
+
+        // Array of letters to be printed in each cell, nested from top left to bottom right
+        char[] letters = {'o', 'b', 'r', 't', 'a', 'c', 'e', 'u', 's'};
+        int letterIndex = 0;
+
+        for (int i = 0; i < gridSize; i++) {
+            // Draw the top edge of each square
+            for (int j = 0; j < gridSize; j++) {
+                System.out.print("+---");
+            }
+            System.out.println("+");
+
+            // Draw the middle rows of each square
+            for (int k = 0; k < subSquareSize; k++) {
+                for (int j = 0; j < gridSize; j++) {
+                    System.out.print("| " + letters[letterIndex++] + " ");
+                }
+                System.out.println("|");
+            }
+        }
+
+        // Draw the bottom edge of the last square
+        for (int j = 0; j < gridSize; j++) {
+            System.out.print("+---");
+        }
+        System.out.println("+");
 
 
+
+
+
+
+=====================menu old
 
   boolean flag = choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4") || choice.equals("5");
             switch (choice) {
@@ -82,7 +119,7 @@ public class TicTacToeGrid {
 
 
 
-
+===personaggi
 victim=Ruth
 sister=Angela
 boss=Mr. Green

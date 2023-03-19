@@ -30,14 +30,14 @@ public @Data class Conversations {
             //next ->if all other questions are done
             "My apologies, I have and important call, you should leave.",
     };
-    private String sisterAboutWitness="Oh, hello, it's good that you are here, I was just going to all you..." +
+    private String sisterAboutWitness = "Oh, hello, it's good that you are here, I was just going to all you..." +
             "\n...Three men have just come to me, they said that they didn't want to go to the police, " +
             "\nbut they had information for you regarding the murder. " +
             "\nThey told me that you could often find them near the gallery, on the opposite side of the road.";
 
     public void clueAssistant(HashMap<String, Person> personaggi) {
         System.out.println("*** Hmm..." + personaggi.get("assistant").getName() + "'s grandmother told that he never comes home during the day... ***");
-        System.out.println("*** You decide to follow " + personaggi.get("assistant").getName() + "and see what he is going to do. ***");
+        System.out.println("*** You decide to follow " + personaggi.get("assistant").getName() + " and see what he is going to do. ***");
         System.out.println();
         System.out.println("*** " + personaggi.get("assistant").getName() +
                 "brought you to " + personaggi.get("assistant").getName() + "'s garage. ***");
@@ -77,21 +77,22 @@ public @Data class Conversations {
         System.out.println();
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println();
-        System.out.println("*** So, you heard this. Now you should find evidence to have him arrested. ***");
+        System.out.println("*** So, you heard this. Now you should find a proof og the crime to have " + personaggi.get("boss").getName() + " arrested. ***");
     }
+
     public void imInnocentBoss(HashMap<String, Person> personaggi) {
         System.out.println();
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         System.out.println(personaggi.get("detective").getName() + ": I have a witness, that saw you leaving the gallery the night of the murder at half past midnight...");
         System.out.println("...So you were not sleeping at home, as you said before...");
         System.out.println(personaggi.get("boss").getName() + ": Yes, yes, I lied, because I was scared. I did go to the gallery that night...");
-        System.out.println("...I called "+personaggi.get("victim").getName()+" before, I knew she was still at work I wanted to...hmm...talk to her...but...");
+        System.out.println("...I called " + personaggi.get("victim").getName() + " before, I knew she was still at work I wanted to...hmm...talk to her...but...");
         System.out.println("...she was already dead! I panicked and just go away, I didn't kill her, I swear!");
         System.out.println(personaggi.get("detective").getName() + ": Why should I believe you? I found a painting in "
-                +personaggi.get("victim").getName()+"'s garage, it's a freshly painted unfinished forgery... " +
-                "\n...imitating the same style and author as the stolen forgery... " );
+                + personaggi.get("victim").getName() + "'s garage, it's a freshly painted unfinished forgery... " +
+                "\n...imitating the same style and author as the stolen forgery... ");
         System.out.println("...I heard your conversation with the collector on the phone. The collector, that you don't know, according to your words... ");
-        System.out.println("...So, I think that "+personaggi.get("victim").getName()+"found out about the forgery, moreover, she had got evidence...");
+        System.out.println("...So, I think that " + personaggi.get("victim").getName() + "found out about the forgery, moreover, she had got evidence...");
         System.out.println("...And you killed her to silence her! ");
         System.out.println(personaggi.get("boss").getName() + ": Ok, you are right about the forgery, but I'm not a killer. And what about the picture?...");
         System.out.println("...Did your witness see that I was carrying the picture?");
@@ -101,17 +102,19 @@ public @Data class Conversations {
         System.out.println();
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println();
-        System.out.println("*** Now the police will deal with "+personaggi.get("boss").getName()+" ***");
+        System.out.println("*** Now the police will deal with " + personaggi.get("boss").getName() + " ***");
         System.out.println("*** But there are some blank spaces in the story. ***");
         System.out.println("*** You must found out who stole the picture, to be sure who is the killer. ***");
     }
+
     public void introduction(HashMap<String, Person> personaggi) {
 
         System.out.println("Here is the story: ");
         System.out.println();
         System.out.println(personaggi.get("victim").getName() + " was a young girl who lived together with her sister and worked as an art curator " +
                 "\nat a prestigious art gallery, where she was organizing a new exhibition of artworks " +
-                "\nof the beginning of the 20th century.");
+                "\nof the beginning of the 20th century. The pearl of the exhibition was meant to be a painting of Almador Tali, " +
+                "\n which was believed to be lost, but recently found in a private collection");
         System.out.println();
         System.out.println("Last week " + personaggi.get("victim").getName() + " was found dead in the gallery. She was tired to a chair," +
                 "According to the police, the time of death is between 12:00 a.m. and 1:00 a.m." + //check: last week
@@ -127,20 +130,21 @@ public @Data class Conversations {
 
     }
 
-public void findSafeBox(HashMap<String, Person> personaggi){
-    System.out.println("*** You are in the " +personaggi.get("assistant").getName()+"'s room. ***");
-    System.out.println("*** Under the bed you see a small metal safe box. It has a combination lock. ***");
-    System.out.println("*** Can you find out how to open it? ***");
-    System.out.println("*** There is a sticker on the base, that may help: ***");
+    public void findSafeBox(HashMap<String, Person> personaggi) {
+        System.out.println("*** You are in the " + personaggi.get("assistant").getName() + "'s room. ***");
+        System.out.println("*** Under the bed you see a small metal safe box. It has a combination lock. ***");
+        System.out.println("*** Can you find out how to open it? ***");
+        System.out.println("*** There is a sticker on the base, that may help: ***");
 
-}
+    }
+
     public String[] sisterQuestions(HashMap<String, Person> personaggi) {
 
         String[] sisterQuestions = {
-               // "When did you see " + personaggi.get("victim").getName() + " the last time?",
+                // "When did you see " + personaggi.get("victim").getName() + " the last time?",
                 "Do you know someone who could harm " + personaggi.get("victim").getName() + "?",
                 "Was she going to meet someone on the day of the crime? ",
-             //   "Were you two close? ",
+                //   "Were you two close? ",
                 "Where were you between 12:00 - 1:00 a.m.? And who was with you?",
                 "Did " + personaggi.get("victim").getName() + " shared any information about the stolen picture?",
                 "Where did she manage to get this famous picture for the exhibition?",
@@ -154,12 +158,12 @@ public void findSafeBox(HashMap<String, Person> personaggi){
     //6->contradicts to boss 6, 5->contradiction boss 5
     public String[] sisterAnswers(HashMap<String, Person> personaggi) {
         String[] sisterAnswers = {
-             //   personaggi.get("sister").getName() + ": The last time I saw " + personaggi.get("victim").getName() + " on the day she was killed, " +
-             //           "in the morning, before she went to work. ",
+                //   personaggi.get("sister").getName() + ": The last time I saw " + personaggi.get("victim").getName() + " on the day she was killed, " +
+                //           "in the morning, before she went to work. ",
                 personaggi.get("sister").getName() + ": " + personaggi.get("victim").getName() + " She got on well with everyone. However...A couple of days before this tragedy" +
                         "\n she told me that someone in her close surrounding is not the person that it seemed to be.",
                 personaggi.get("sister").getName() + ": " + personaggi.get("victim").getName() + " didn't mention meeting anyone, but she received a message and said she would come home late. ",
-            //    personaggi.get("sister").getName() + ": Yes, " + personaggi.get("victim").getName() + " and I had very good relations. ",
+                //    personaggi.get("sister").getName() + ": Yes, " + personaggi.get("victim").getName() + " and I had very good relations. ",
                 personaggi.get("sister").getName() + ": Between 12:00 - 1:00 a.m. I was sleeping at home, alone.",
                 personaggi.get("sister").getName() + ": " + personaggi.get("victim").getName() + " was very excited to have this picture for the exhibition, but a day before this tragedy" +
                         "\nshe mentioned that something didn't add up and probably they should have postpone the exhibition opening. ",
@@ -247,7 +251,7 @@ public void findSafeBox(HashMap<String, Person> personaggi){
 
                 personaggi.get("assistant").getName() + ": The last time I saw " + personaggi.get("victim").getName() + " around 8 in the evening on this tragic day, I was going home, " +
                         "\n she was staying in the gallery to finish some work",
-                personaggi.get("assistant").getName() + ": No, "+ personaggi.get("victim").getName() +"'s death was a horrible accident.",
+                personaggi.get("assistant").getName() + ": No, " + personaggi.get("victim").getName() + "'s death was a horrible accident.",
                 personaggi.get("assistant").getName() + ": " + personaggi.get("victim").getName() + " was acting normally. ",
 
                 personaggi.get("assistant").getName() + ": " + personaggi.get("victim").getName() + " said the painting was a treasure, she couldn't wait for the exhibition opening.",
@@ -264,12 +268,12 @@ public void findSafeBox(HashMap<String, Person> personaggi){
         String[] grandmotherQuestions = {
 
                 "Where was your grandson last Wednesday between 12:00 - 1:00 a.m.?",
-                "Did you notice anything unusual in "+personaggi.get("assistant").getName()+"'s behaviour lately?",
+                "Did you notice anything unusual in " + personaggi.get("assistant").getName() + "'s behaviour lately?",
+
                 //element to find a safe box when boss is arrested ->boolean arrestedBoss-not to delete!
                 "Can I take a look at " + personaggi.get("assistant").getName() + "'s room?",
+                //question is shown if question about alibi is asked
                 "Is it possible that your grandson left the house unnoticed later while you were sleeping ?",
-
-
                 //only if garage door is unlocked (puzzle) and safe box unlocked ->boolean messageAssistant
                 "Is your clock working correctly? I see the different time on my watch."
         };
@@ -280,60 +284,78 @@ public void findSafeBox(HashMap<String, Person> personaggi){
 
     public String[] grandmotherAnswers(HashMap<String, Person> personaggi) {
         String[] grandmotherAnswers = {
+                personaggi.get("grandmother").getName() + ": At home, I remember it well, because I looked at the clock: my grandson came back at 21.45, and stayed here all night.",
 
-                personaggi.get("grandmother").getName() + ": I remember it well, because I looked at the clock: my grandson came back at 21.45, and stayed at home all night.",
                 personaggi.get("grandmother").getName() + ": Hmm, nothing special, but.. Last week he came back home at lunchtime, " +
                         "\n I was surprised, because he never comes home util the evening. He didn't stay long, just went to his room for a while and then left the house.",
 
                 personaggi.get("grandmother").getName() + ": Yes, his room is upstairs on the right, I will not accompany you, it's hard for me to go up and down the stairs. ",
                 personaggi.get("grandmother").getName() + ": " + personaggi.get("assistant").getName() + " couldn't go out unnoticed, as I was sleeping on the couch near the door, and I would wake up: our door makes a lot of noise ",
-
-
                 personaggi.get("grandmother").getName() + ": Oh, that.. I forgot to tell you: the clock has a defect. I will explain you how it works.. "
         };
         return grandmotherAnswers;
     }
-
-private String witnessBoss="Well, my two friends and I live here, on that night we came back from a party by taxi, it was half past midnight." +
-        "...We were sitting in the car, my friends were arguing with the taxi driver about the price, and I looked out in the window..." +
-        "\n...I saw a tall big man in a hat, I often see him here, I think he is the owner of the gallery..." +
-        "\n...He seemed worried and walked at a fast pace...Then he turned the corner and I lost sight of him..." +
-        "\n...I didn't pay much attention to all this, but in the morning we found out about the murder..." +
-        "\n...I don't get on well with the police, so I wanted to find somebody who I cant trust...That's it. Here is my phone number if you need me";
-
-//Getter and setter
-/*
-
-    public String[] getHurryUpSister() {
-        return hurryUpSister;
+    public void arrestAssistant(HashMap<String, Person> personaggi) throws InterruptedException {
+        System.out.println("*** Together with the police you reached the bus ***");
+        System.out.println("*** "+personaggi.get("assistant").getName()+ "was still inside it, the police arrested him and brought to the police station. He had 10000Eur in his backpack ***");
+        System.out.println("*** During the interrogation he told the truth: ***");
+        Thread.sleep(2000);
+        System.out.println();
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        System.out.println(personaggi.get("assistant").getName()+ ": I was not going to kill "+personaggi.get("victim").getName()+" ... I just panicked");
+        System.out.println("...A couple of days before the exhibition opening we overheard the conversation between " +personaggi.get("boss").getName()+
+                " and "+personaggi.get("collector").getName()+", the collector...");
+        System.out.println("...We decided to visit "+personaggi.get("collector").getName()+"...I was distracting him with conversation, while "+
+                personaggi.get("victim").getName()+" was searching his office... ");
+        System.out.println("... But when we were talking "+personaggi.get("collector").getName()+" guessed that i know something and suggested me big money for my silence...");
+        System.out.println("... I wasn't able to reject his proposal...He gave me 10000 and promised twice more in a couple of weeks...");
+        System.out.println("But "+personaggi.get("victim").getName()+" found another fake painting in "+personaggi.get("collector").getName()
+                +"'s office...we hid it in her garage...She was going to discuss it with "+
+                personaggi.get("boss").getName()+" before going to the police...");
+        System.out.println("...I tried to talk to "+personaggi.get("victim").getName()+", I wrote her a message to meet and persuade her, but she was insisting to go to the police, saying that I should also confess...");
+        System.out.println("...So, I tired her to the chair and make her give me the code from the garage to get rid of the evidence, then we heard a noise outside and "+
+                        personaggi.get("victim").getName()+" started to scream..." );
+        System.out.println("...I panicked and hit her head with a bronze statuette, that was on the table...");
+        System.out.println("...Then I took the painting and run away...");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println();
+        System.out.println();
+        Thread.sleep(2000);
+        System.out.println("*** Congratulations!! You solved a murder case and brought the killer to justice! ***");
+        System.out.println("*** THE END ***");
     }
 
-    public void setHurryUpSister(String[] hurryUpSister) {
-        this.hurryUpSister = hurryUpSister;
-    }
+    private String[] enterGarage = {
+            "*** You entered the garage. It's small and almost empty, in the corner you see an unfinished painting. " +
+                    "\nThe paint seems fresh, and the style reminds the hand of Almador Tali- " +
+                    "\nthe same author who created the painting, stolen from the gallery... " +
+                    "\n ...Which suggests, that it's a forgery, and it's very likely that the stolen picture was also a forgery..." +
+                    "\nYou decided to take it as evidence ***",
+            "*** A freshly painted unfinished forgery from the garage ***"
+    };
 
-    public String[] getHurryUpAssistant() {
-        return hurryUpAssistant;
-    }
 
-    public void setHurryUpAssistant(String[] hurryUpAssistant) {
-        this.hurryUpAssistant = hurryUpAssistant;
-    }
+    private String askGoUpstairs = "Can I go upstairs one more time, please?";
+    private String answerGoUpstairs = "Sure, feel free.";
 
-    public String[] getHurryUpBoss() {
-        return hurryUpBoss;
-    }
+    private String witnessBoss = "Well, my two friends and I live here, on that night we came back from a party by taxi, it was half past midnight." +
+            "...We were sitting in the car, my friends were arguing with the taxi driver about the price, and I looked out in the window..." +
+            "\n...I saw a tall big man in a hat, I often see him here, I think he is the owner of the gallery..." +
+            "\n...He seemed worried and walked at a fast pace...Then he turned the corner and I lost sight of him..." +
+            "\n...I didn't pay much attention to all this, but in the morning we found out about the murder..." +
+            "\n...I don't get on well with the police, so I wanted to find somebody who I cant trust...That's it. Here is my phone number if you need me";
 
-    public void setHurryUpBoss(String[] hurryUpBoss) {
-        this.hurryUpBoss = hurryUpBoss;
-    }
-
-    public String getSisterAboutWitness() {
-        return sisterAboutWitness;
-    }
-
-    public String getWitnessBoss() {
-        return witnessBoss;
-    }*/
+    private String insideSafeBox = "*** Inside the safeBox you found a pack of 10000EUR. ***";
+    private String findLaptop = "*** You came to visit victim's assistant, but there is nobody in his office. On the desk you noticed a laptop" +
+            "\n and decided to check if you could find any useful information there." +
+            "\n But the laptop has a password. You inserted a couple of simple variations and a password reminder appeared. ***";
+private String talkPolice="***  You decided to inform the police. ***" +
+        "\n"+
+        "\n*** You told the police about money, that you found and about the assistant's fake alibi. ***" +
+        "\n*** The police told you, that they found the stolen painting, it was damaged and thrown away in a garbage bin in the park near the gallery..." +
+        "\n... which proves that the painting was not the real motive for the murder. " +
+        "\n*** Now you should help the police to find the victim's assistant ***";
+private String assistantBus="*** There is nobody in the assistant's office. *** " +
+        "\n*** On the floor you see a piece of paper, that may give a clue... ***";
 
 }//

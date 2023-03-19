@@ -50,8 +50,8 @@ public class CrimeTime implements CanCrimeTime {
         bossAnswers = conversations.bossAnswers(personaggi);
         assistantQuestions = conversations.assistantQuestions(personaggi);
         assistantAnswers = conversations.assistantAnswers(personaggi);
-        grandmotherQuestions=conversations.grandmotherQuestions(personaggi);
-        grandmotherAnswers=conversations.grandmotherAnswers(personaggi);
+        grandmotherQuestions = conversations.grandmotherQuestions(personaggi);
+        grandmotherAnswers = conversations.grandmotherAnswers(personaggi);
         personaggi.get("detective").setTimeAskedSister(LocalTime.now().minusMinutes(10));
 
         personaggi.get("detective").setTimeAskedBoss(LocalTime.now().minusMinutes(10));
@@ -72,12 +72,13 @@ public class CrimeTime implements CanCrimeTime {
         boolean flag4 = false;
         boolean flag5 = false;
         boolean flag6 = false;
+        boolean flag7 = false;
         System.out.println();
-  //      if (answersReceived.size() > 0) {   }
+        //      if (answersReceived.size() > 0) {   }
         System.out.println("--------------------------------------------");
         System.out.println("*** What would you like to do? ***");
         System.out.println("S -> Visit victim's sister " + personaggi.get("sister").getName());
-        if (personaggi.get("detective").isArrestedBoss()==false){
+        if (personaggi.get("detective").isArrestedBoss() == false) {
             System.out.println("B -> Visit victim's boss " + personaggi.get("boss").getName());
         }
 
@@ -99,15 +100,21 @@ public class CrimeTime implements CanCrimeTime {
             flag4 = true;
         }
         //if puzzles are unlocked
-        if (personaggi.get("detective").isPuzzleLocker()||personaggi.get("detective").isPuzzleWhoTellsTruth()
-        ||personaggi.get("detective").isPuzzleSafeBox()) {
+        if (personaggi.get("detective").isPuzzleLocker() || personaggi.get("detective").isPuzzleWhoTellsTruth()
+                || personaggi.get("detective").isPuzzleSafeBox()||personaggi.get("detective").isPuzzleLaptopPassword()
+                ||personaggi.get("detective").isPuzzleDecodeMessage()||personaggi.get("detective").isPuzzleClock()) {
             System.out.println("P -> Solve a puzzle");
             flag5 = true;
         }
         //if puzzle Locker code is solved
-        if (personaggi.get("detective").isCanOpenGarage()) {
+        if (personaggi.get("detective").isSolvedGarageLocker()) {
             System.out.println("O -> Open the garage door");
             flag6 = true;
+        }
+        //if puzzle Laptop is solved
+        if (personaggi.get("detective").isSolvedLaptopPassword()) {
+            System.out.println("L -> Go through assistant's laptop");
+            flag7 = true;
         }
 
 
@@ -120,7 +127,7 @@ public class CrimeTime implements CanCrimeTime {
             if (choice.equals("S")) {
                 goSister(currentTime);
                 flag0 = true;
-            } else if (choice.equals("B")&&personaggi.get("detective").isArrestedBoss()==false) {
+            } else if (choice.equals("B") && personaggi.get("detective").isArrestedBoss() == false) {
                 goBoss(currentTime);
                 flag0 = true;
             } else if (choice.equals("A") && flag1 == true) {
@@ -136,10 +143,19 @@ public class CrimeTime implements CanCrimeTime {
                 seeEvidence();
                 flag0 = true;
             } else if (choice.equals("P") && flag5 == true) {
-                solvePuzzle();
+                solvePuzzles();
                 flag0 = true;
-            } else System.out.println();
-            System.out.println("*** Input error: try again  ***");
+            } else if ((choice.equals("O") && flag6 == true)) {
+                openGarage();
+                flag0 = true;
+            } else if ((choice.equals("O") && flag6 == true)){
+                readMessage();
+                flag0=true;
+            }
+            else {
+                System.out.println("*** Input error: try again  ***");
+            }
+
 
         } while (!flag0);
 
@@ -188,7 +204,12 @@ public class CrimeTime implements CanCrimeTime {
                 do {
                     System.out.println();
                     System.out.println("*** Input your choice  ***");
-                    System.out.println("1 - " + (sisterQuestions.length) + " -> Ask the question");
+                    if (sisterQuestions.length>1){
+                        System.out.println("1 - " + (sisterQuestions.length) + " -> Ask the question");
+                    }else{
+                        System.out.println("1  -> Ask the question");
+                    }
+
                     System.out.println("0 -> Go back to the menu");
                     choiceStr = scanner.next();
 
@@ -219,7 +240,7 @@ public class CrimeTime implements CanCrimeTime {
                     System.out.println(personaggi.get("detective").getName() + ": " + sisterQuestions[choice]);
                     System.out.println(givenAnswer);
                     System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                    if (choice == sisterQuestions.length-1) {
+                    if (choice == sisterQuestions.length - 1) {
                         if (personaggi.get("detective").isCodeFromSister() == false) {
                             // sister explains about garage locker code
                             explainCode = conversations.explainCode(personaggi);
@@ -256,10 +277,10 @@ public class CrimeTime implements CanCrimeTime {
                 } else {
                     menu();
                 }
-            } else if(personaggi.get("detective").isActionSister()==false){
+            } else if (personaggi.get("detective").isActionSister() == false) {
                 //if there are no more questions in the array
                 System.out.println();
-                System.out.println("*** " + personaggi.get("sister").getName() + ": has no more valuable information to share. ***");
+                System.out.println("*** " + personaggi.get("sister").getName() + ": has no more valuable information to share for now. ***");
                 menu();
             }
         }
@@ -276,10 +297,10 @@ public class CrimeTime implements CanCrimeTime {
             menu();
         }
         //when after detective heard boss speaks with collector->boolean sisterAction=true->sister shares new info
-        if (personaggi.get("detective").isActionSister()){
+        if (personaggi.get("detective").isActionSister()) {
             System.out.println();
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-            String newWitness=personaggi.get("sister").getName() + ": " + conversations.getSisterAboutWitness();
+            String newWitness = personaggi.get("sister").getName() + ": " + conversations.getSisterAboutWitness();
             System.out.println(newWitness);
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             answersReceived.add(newWitness);
@@ -332,11 +353,15 @@ public class CrimeTime implements CanCrimeTime {
 
                 //control if choice is valid
                 boolean flag;
-                boolean isDigit=false;
+                boolean isDigit = false;
                 do {
                     System.out.println();
                     System.out.println("*** Input your choice  ***");
-                    System.out.println("1 - " + (bossQuestions.length) + " -> Ask the question");
+                    if (bossQuestions.length>1){
+                        System.out.println("1 - " + (bossQuestions.length) + " -> Ask the question");
+                    }else{
+                        System.out.println("1  -> Ask the question");
+                    }
                     System.out.println("0 -> Go back to the menu");
                     choiceStr = scanner.next();
                     for (char c : choiceStr.toCharArray()) {
@@ -371,10 +396,10 @@ public class CrimeTime implements CanCrimeTime {
                     personaggi.get("detective").setTalkedBoss(true);
                     //put the answer to the ArrayList-> to use in seeNotes();
                     answersReceived.add(givenAnswer);
-                    //set boolean for boss to take action after all the questions from the array are asked
-                    if (bossQuestions.length == 1) {
-                        personaggi.get("detective").setActionBoss(true);
-                    }
+                  /*  //set boolean for boss to take action after all the questions from the array are asked
+                    if (personaggi.get("detective").isActionBoss()) {
+
+                    }*/
 
                     //delete the used question and answer from the arrays;
                     for (int i = choice; i < bossQuestions.length - 1; i++) {
@@ -402,7 +427,7 @@ public class CrimeTime implements CanCrimeTime {
                 //sister can share information about a witness->puzzle whoTellsTruth()
                 personaggi.get("detective").setActionSister(true);
 
-            } else if (personaggi.get("detective").isWitnessBoss()==false){
+            } else if (personaggi.get("detective").isWitnessBoss() == false) {
                 //if there are no more questions in the array
                 System.out.println();
                 // System.out.println("*** " + personaggi.get("boss").getName() + ": has no more valuable information to share. ***");
@@ -423,7 +448,7 @@ public class CrimeTime implements CanCrimeTime {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             menu();
         }
-        if (personaggi.get("detective").isWitnessBoss()){
+        if (personaggi.get("detective").isWitnessBoss()) {
             System.out.println();
             conversations.imInnocentBoss(personaggi);
             System.out.println();
@@ -435,6 +460,9 @@ public class CrimeTime implements CanCrimeTime {
 
     @Override
     public void goAssistant(LocalTime timeStart) {
+        personaggi.get("detective").setAtAssistants(true);
+
+
         //limit questions at a time: 2, then wait 2 min
         //ask questions only 2 or more min after the last question
         Duration pauseTalk = Duration.ZERO;
@@ -474,11 +502,15 @@ public class CrimeTime implements CanCrimeTime {
 
                 //control if choice is valid
                 boolean flag;
-                boolean isDigit=false;
+                boolean isDigit = false;
                 do {
                     System.out.println();
                     System.out.println("*** Input your choice  ***");
-                    System.out.println("1 - " + (assistantQuestions.length) + " -> Ask the question");
+                    if (assistantQuestions.length>1){
+                        System.out.println("1 - " + (assistantQuestions.length) + " -> Ask the question");
+                    }else{
+                        System.out.println("1  -> Ask the question");
+                    }
                     System.out.println("0 -> Go back to the menu");
                     choiceStr = scanner.next();
                     for (char c : choiceStr.toCharArray()) {
@@ -500,7 +532,7 @@ public class CrimeTime implements CanCrimeTime {
 
                 //detective asks a question
                 if (choice != -1) {
-                    if (choice == assistantQuestions.length-1) {
+                    if (choice == assistantQuestions.length - 1) {
                         personaggi.get("detective").setCanMeetGrandmother(true);
                     }
                     //print the chosen question and the answer
@@ -531,6 +563,7 @@ public class CrimeTime implements CanCrimeTime {
                     }
                     assistantAnswers = Arrays.copyOf(assistantAnswers, assistantAnswers.length - 1);
                 } else {
+                    personaggi.get("detective").setAtAssistants(false);
                     menu();
                 }
             } else if (personaggi.get("detective").isActionAssistant()) {
@@ -557,18 +590,27 @@ public class CrimeTime implements CanCrimeTime {
                         System.out.println("*** Now you have both parts of the instruction! ***");
                         System.out.println("*** When you are ready to solve the puzzle, choose this option in the menu. ***");
                         String completeCode = puzzles.getCompleteCode();
+                        personaggi.get("detective").setPuzzleLocker(true);
                         evidence.add(completeCode);
                     }
                 }
 
-
-            } else {
+            } else if (personaggi.get("detective").isArrestedBoss()&&personaggi.get("detective").isSolvedLaptopPassword()==false) {
+                System.out.println(conversations.getFindLaptop());
+                solveLaptopPassword();
+            } else if (personaggi.get("detective").isSolvedLaptopPassword()&&personaggi.get("detective").isSolvedMessage()==false){
+                readMessage();
+            } else if (personaggi.get("detective").isSolvedClock()&&personaggi.get("detective").isSolvedBusNumber()==false){
+                System.out.println(conversations.getAssistantBus());
+                puzzles.busNumber();
+            }
+            else {
                 //if there are no more questions in the array
                 System.out.println();
                 // System.out.println("*** " + personaggi.get("assistant").getName() + ": has no more valuable information to share. ***");
                 //detective should unlock the garage
-                System.out.println("You should unlock the garage and understand what assistant wanted to take there");
-                // System.out.println("*** You should find evidence that incriminates " +personaggi.get("assistant").getName()+ " ***");
+                System.out.println("*** You should unlock the garage and understand what assistant wanted to take from there ***");
+                personaggi.get("detective").setAtAssistants(false);
                 menu();
             }
         }
@@ -582,14 +624,17 @@ public class CrimeTime implements CanCrimeTime {
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
             System.out.println(personaggi.get("assistant").getName() + ": " + conversations.getHurryUpAssistant()[numReasonHurry]);
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            personaggi.get("detective").setAtAssistants(false);
             menu();
         }
-
+        personaggi.get("detective").setAtAssistants(false);
         menu();
     }
 
-    public void goGrandmother(LocalTime timeStart) {
 
+    public void goGrandmother(LocalTime timeStart) {
+        personaggi.get("detective").setAtGrandmothers(true);
+        boolean solvedSafeBox = false;
         //limit for 3 questions at a time
         //ask the last question only 2 or more min after the last question
 
@@ -599,183 +644,395 @@ public class CrimeTime implements CanCrimeTime {
         if (minutesPause < BREAKTIME && grandmotherQuestions.length > 0) {
             System.out.println();
             System.out.println("*** It seems that " + personaggi.get("grandmother").getName() + " is still busy, come back later. ***");
+            personaggi.get("detective").setAtGrandmothers(false);
             menu();
         }
-            String choiceStr = "";
-            int choice = -1;
-            System.out.println();
-            //reset questions counter if 2 or more minutes passed after reaching the limit for questions
-            if (personaggi.get("detective").isAskedGrandmother()) {
-                countQuestionsGrandmother = 1;
-                personaggi.get("detective").setAskedGrandmother(false);
-            }
-            while (countQuestionsGrandmother < 3 && personaggi.get("detective").isAskedGrandmother() == false) {
-                if (grandmotherQuestions.length > 0) {
-                    int index = 1;
-                    System.out.println();
+        String choiceStr = "";
+        int choice = -1;
+        System.out.println();
+        //reset questions counter if 2 or more minutes passed after reaching the limit for questions
+        if (personaggi.get("detective").isAskedGrandmother()) {
+            countQuestionsGrandmother = 1;
+            personaggi.get("detective").setAskedGrandmother(false);
+        }
+        while (countQuestionsGrandmother <= 3 && personaggi.get("detective").isAskedGrandmother() == false) {
+            if (grandmotherQuestions.length > 0) {
+                int index = 1;
+                int askUpstairsIndex = -1;
+                System.out.println();
 
-                    //if the method is recalled 2 or more min after the last question
-                    System.out.println();
-                    System.out.println("--------------------------------------------");
-                    System.out.println("*** You came to visit " + personaggi.get("grandmother").getName() + " ***");
+                //if the method is recalled 2 or more min after the last question
+                System.out.println();
+                System.out.println("--------------------------------------------");
+                System.out.println("*** You came to visit " + personaggi.get("grandmother").getName() + " ***");
 
-                    System.out.println("*** What would you like to ask? ***");
-                    //print the list of questions except ones that need to be asked later
-                    int length=0;
-                    if (personaggi.get("detective").isAskedGrandmother()==false){
-                        length=grandmotherQuestions.length-4;
+                System.out.println("*** What would you like to ask? ***");
+                //print the list of questions except ones that need to be asked later
+                int length = 0;
+                if (personaggi.get("detective").isAskedGrandmother() == false) {
+                    length = grandmotherQuestions.length - 3;
+                }
+                if (personaggi.get("detective").isNextQuestionGrandmother()) {
+                    length = grandmotherQuestions.length - 2;
+                }
+                if (personaggi.get("detective").isSolvedMessage()) {
+                    length = grandmotherQuestions.length - 1;
+                }
+                for (int i = 0; i <= length; i++) {
+                    System.out.println((index++) + " -> " + grandmotherQuestions[i]);
+
+                }
+                if (personaggi.get("detective").isPuzzleSafeBox()) {
+                    askUpstairsIndex = index++;
+                    System.out.println((askUpstairsIndex) + " -> " + conversations.getAskGoUpstairs());
+                    length += 1;
+                }
+
+                //control if choice is valid
+                boolean flag;
+                boolean isDigit = false;
+                do {
+                    System.out.println();
+                    System.out.println("*** Input your choice  ***");
+                    if (length>0){
+                        System.out.println("1 - " + (length + 1) + " -> Ask the question");
                     }else{
-                        length=grandmotherQuestions.length-5;
+                        System.out.println("1  -> Ask the question");
                     }
-                    for (int i=0; i<=length;i++) {
-                            System.out.println((index++) + " -> " + grandmotherQuestions[i]);
+
+                    System.out.println("0 -> Go back to the menu");
+                    choiceStr = scanner.next();
+                    for (char c : choiceStr.toCharArray()) {
+                        if (!Character.isDigit(c)) {
+                            isDigit = false;
+                            break;
+                        } else {
+                            isDigit = true;
+                        }
                     }
-                    //control if choice is valid
-                    boolean flag;
-                    boolean isDigit = false;
-                    do {
-                        System.out.println();
-                        System.out.println("*** Input your choice  ***");
-                        System.out.println("1 - " + length + " -> Ask the question");
-                        System.out.println("0 -> Go back to the menu");
-                        choiceStr = scanner.next();
-                        for (char c : choiceStr.toCharArray()) {
-                            if (!Character.isDigit(c)) {
-                                isDigit = false;
-                                break;
-                            } else {
-                                isDigit = true;
-                            }
+                    if (isDigit) {
+                        choice = Integer.parseInt(choiceStr) - 1;
+                    }
+                    flag = (isDigit && (choice <= length || choice == -1));
+                    if (!flag) {
+                        System.out.println("Input error, try again");
+                    }
+                } while (!flag);
+                //detective asks a question
+                String givenAnswer = "";
+                if (choice != -1 && choice != askUpstairsIndex - 1) {
+
+                    //print the chosen question and the answer
+                    System.out.println();
+                    System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                    System.out.println(personaggi.get("detective").getName() + ": " + grandmotherQuestions[choice]);
+                    givenAnswer = grandmotherAnswers[choice];
+                    System.out.println(givenAnswer);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                    //put the answer to the ArrayList-> to use in seeNotes();
+                    answersReceived.add(givenAnswer);
+                    //count questions
+                    countQuestionsGrandmother++;
+                    //if detective goes to the assistant's room
+                    if (grandmotherQuestions[choice].trim().toLowerCase().contains("room")&& personaggi.get("detective").isSolvedSafeBox() == false){//&&personaggi.get("detective").isAskedNextQuestion()==false
+                        personaggi.get("detective").setPuzzleSafeBox(true);
+                        conversations.findSafeBox(personaggi);
+
+                        solvedSafeBox = puzzles.safeBoxCode();
+                        if (solvedSafeBox == true) {
+                            personaggi.get("detective").setSolvedSafeBox(true);
+                            openSafeBox();
                         }
-                        if (isDigit) {
-                            choice = Integer.parseInt(choiceStr) - 1;
+                    }
+                    if (grandmotherQuestions[choice].trim().toLowerCase().contains("room")&& personaggi.get("detective").isSolvedSafeBox()){//&&personaggi.get("detective").isAskedNextQuestion()==false
+                            openSafeBox();
+                    }
+
+/*
+                    if ((choice == grandmotherQuestions.length - 3 && personaggi.get("detective").isSolvedSafeBox() == false
+                            &&personaggi.get("detective").isAskedNextQuestion()==false)
+                            ||(choice == grandmotherQuestions.length - 2 && personaggi.get("detective").isSolvedSafeBox() == false
+                            &&personaggi.get("detective").isAskedNextQuestion())) {
+                        personaggi.get("detective").setPuzzleSafeBox(true);
+                        conversations.findSafeBox(personaggi);
+
+                        solvedSafeBox = puzzles.safeBoxCode();
+                        if (solvedSafeBox == true) {
+                            personaggi.get("detective").setSolvedSafeBox(true);
+                            openSafeBox();
                         }
-                        flag = (isDigit && (choice <= length || choice == -1));
-                        if (!flag) {
-                            System.out.println("Input error, try again");
-                        }
-                    } while (!flag);
-                    //detective asks a question
-                    String givenAnswer="";
-                    if (choice != -1) {
-                        //print the chosen question and the answer
-                        System.out.println();
-                        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-                        System.out.println(personaggi.get("detective").getName() + ": " + grandmotherQuestions[choice]);
-                        givenAnswer=grandmotherAnswers[choice];
-                        System.out.println(givenAnswer);
-                        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                        //count questions
-                        countQuestionsGrandmother++;
-                        //put the answer to the ArrayList-> to use in seeNotes();
-                        answersReceived.add(givenAnswer);
-                        //set boolean for grandmother to take action after all the questions from the array are asked
-                        if (grandmotherQuestions.length == 1) {
-                            personaggi.get("detective").setActionGrandmother(true);
-                        }
-                        //if detective goes to the assistant's room
-                        if (choice==grandmotherQuestions.length-3){
-                            conversations.findSafeBox(personaggi);
-                            personaggi.get("detective").setPuzzleSafeBox(true);
-                            puzzles.safeBoxCode();
-                        }
-                        //delete the used question and answer from the arrays;
-                            for (int i = choice; i < grandmotherQuestions.length-1; i++) {
-                                grandmotherQuestions[i] = grandmotherQuestions[i + 1];
-                            }
-                            grandmotherQuestions = Arrays.copyOf(grandmotherQuestions, grandmotherQuestions.length - 1);
-                            for (int i = choice; i < grandmotherAnswers.length - 1; i++) {
-                                grandmotherAnswers[i] = grandmotherAnswers[i + 1];
-                            }
-                            grandmotherAnswers = Arrays.copyOf(grandmotherAnswers, grandmotherAnswers.length - 1);
+                    }*/
+/*                    if ((choice == grandmotherQuestions.length - 3 && personaggi.get("detective").isSolvedSafeBox()
+                            && personaggi.get("detective").isFoundMoney() == false&&personaggi.get("detective").isAskedNextQuestion()==false)
+                    ||(choice == grandmotherQuestions.length - 2 && personaggi.get("detective").isSolvedSafeBox()
+                            && personaggi.get("detective").isFoundMoney() == false&&personaggi.get("detective").isAskedNextQuestion())) {
+                        openSafeBox();
+                    }*/
+                    if (choice == 0) {
+                        personaggi.get("detective").setNextQuestionGrandmother(true);
+                    }
+                  /*  if (grandmotherQuestions[choice].trim().toLowerCase().contains("unnoticed")){
+                        personaggi.get("detective").setAskedNextQuestion(true);
+                    }*/
 
 
-                    } else {
-                        menu();
+
+                    //show another question if asked about alibi
+
+                    //delete the used question and answer from the arrays;
+
+                    for (int i = choice; i < grandmotherQuestions.length - 1; i++) {
+
+                            grandmotherQuestions[i] = grandmotherQuestions[i + 1];
+
+                    }
+                    grandmotherQuestions = Arrays.copyOf(grandmotherQuestions, grandmotherQuestions.length - 1);
+                    for (int i = choice; i < grandmotherAnswers.length - 1; i++) {
+
+                        grandmotherAnswers[i] = grandmotherAnswers[i + 1];
+
+                    }
+                    grandmotherAnswers = Arrays.copyOf(grandmotherAnswers, grandmotherAnswers.length - 1);
+
+                }
+                else if (choice == askUpstairsIndex - 1 ) {
+                    System.out.println();
+                    System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                    System.out.println(personaggi.get("detective").getName() + ": " + conversations.getAskGoUpstairs());
+                    givenAnswer = conversations.getAnswerGoUpstairs();
+                    System.out.println(givenAnswer);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                    if (personaggi.get("detective").isPuzzleSafeBox() && personaggi.get("detective").isSolvedSafeBox()==false){
+                        solvePuzzleSafeBox();
+                    }else if (personaggi.get("detective").isSolvedSafeBox()) {
+                        openSafeBox();
                     }
                 }
+                else if (choice==grandmotherQuestions.length-1){
+                    solvePuzzleClock();
+                } else if (choice == -1) {
+                    personaggi.get("detective").setAtGrandmothers(false);
+                    menu();
+                } else {
+                    System.out.println("*** Wrong input, try again ***");
+                }
             }
-            //when detective reached the limit for questions
-            if (countQuestionsGrandmother >= 4) {
-                personaggi.get("detective").setAskedGrandmother(true);
-                //registrate the time when limit for questions was reached
-                personaggi.get("detective").setTimeAskedGrandmother(LocalTime.now());
-                System.out.println();
-                System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-                System.out.println(personaggi.get("grandmother").getName() + ": Sorry darling, I'm so tired, I need to sleep. Come back later, please");
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        }
+        //when detective reached the limit for questions
+        if (countQuestionsGrandmother > 3&&personaggi.get("detective").isPuzzleSafeBox()==false) {
+            personaggi.get("detective").setAskedGrandmother(true);
+            //register the time when limit for questions was reached
+            personaggi.get("detective").setTimeAskedGrandmother(LocalTime.now());
+            System.out.println();
+            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            System.out.println(personaggi.get("grandmother").getName() + ": Sorry darling, I'm so tired, I need to sleep. Come back later, please");
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
-          //      personaggi.get("detective").setCanGoRoomAssistant(true);
-                menu();
-            }
+            //      personaggi.get("detective").setCanGoRoomAssistant(true);
+            personaggi.get("detective").setAtGrandmothers(false);
+            menu();
+        }
 
+        personaggi.get("detective").setAtGrandmothers(false);
         menu();
     }
+
     @Override
     public void talkPerson() {
 
     }
 
+    public void openSafeBox() {
+        System.out.println("*** You set the code and opened the box. ***");
+        System.out.println(conversations.getInsideSafeBox());
+        System.out.println("*** You made a photo to keep it as evidence. ***");
+        evidence.add(conversations.getInsideSafeBox());
+        personaggi.get("detective").setFoundMoney(true);
+        if (personaggi.get("detective").isAtGrandmothers()) {
+            goGrandmother(LocalTime.now());
+        } else {
+            menu();
+        }
+    }
+
+    public void readMessage() {
+        boolean isSolved = puzzles.decodeMessage(personaggi);
+        if (isSolved == true) {
+            String message = puzzles.getMessageToEncode();
+            answersReceived.add("Puzzle 'Decode the message' is solved:\t" + message);
+            personaggi.get("detective").setSolvedMessage(true);
+            personaggi.get("detective").setPuzzleClock(true);
+            personaggi.get("detective").setPuzzleDecodeMessage(false); //to not suggest to solve puzzle again
+            System.out.println("*** So, you read it. But " +personaggi.get("assistant").getName()+ " has an alibi..." +
+                    "\n Perhaps you should talk to his grandmother again...***");
+        } else {
+            menu();
+        }
+    }
+
+public void solvePuzzleClock(){
+    boolean isSolved = puzzles.clock(personaggi);
+    if (isSolved == true) {
+        String time = puzzles.getAnswerPuzzleClock();
+        answersReceived.add("Puzzle 'Clock' is solved, the right time when "+personaggi.get("assistant").getName()+ " got home was: " + time);
+        personaggi.get("detective").setSolvedClock(true);
+        personaggi.get("detective").setPuzzleClock(false); //to not suggest to solve puzzle again
+        System.out.println("*** Now you have enough evidence to have " + personaggi.get("assistant").getName() + " arrested ***");
+        conversations.getTalkPolice();
+    } else {
+        menu();
+    }
+}
+    private void solveLaptopPassword() {
+        boolean isSolved = puzzles.laptopPassword();
+        if (isSolved == true) {
+            String laptopPassword = puzzles.getAnswerLaptopPassword();
+            answersReceived.add("Puzzle 'Laptop password' is solved:\t" + laptopPassword);
+            personaggi.get("detective").setSolvedLaptopPassword(true);
+            personaggi.get("detective").setPuzzleLaptopPassword(false); //to not suggest to solve puzzle again
+            System.out.println("*** Now you can find out more about " + personaggi.get("assistant").getName() + " ***");
+            if (personaggi.get("detective").isAtAssistants()) {
+                readMessage();
+            }else{
+                System.out.println("You can go to the assistant's office to enter the password ans check his laptop");
+            }
+        } else {
+            menu();
+        }
+    }
+
+    public void solvePuzzleLockerCode() {
+        boolean isSolved = puzzles.lockerCode();
+        if (isSolved == true) {
+            String codePuzzleLocker = puzzles.getAnswerPuzzleLocker();
+            answersReceived.add("Puzzle 'Locker code' is solved:\n" + codePuzzleLocker);
+            personaggi.get("detective").setSolvedGarageLocker(true);
+            personaggi.get("detective").setPuzzleLocker(false); //to not suggest to solve puzzle again
+            System.out.println("*** Now you can open the garage. ***");
+        }
+        menu();
+    }
+
+    public void solvePuzzleWhoTellsTruth() {
+        boolean isSolved = puzzles.whoTellsTruth();
+        System.out.println();
+        if (isSolved == true) {
+            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            System.out.println(personaggi.get("detective").getName() + ": So tell me what you know.");
+            System.out.println("BEN: " + conversations.getWitnessBoss());
+            System.out.println(personaggi.get("detective").getName() + ": Ok, thank you.");
+            answersReceived.add("BEN: " + conversations.getWitnessBoss());
+            personaggi.get("detective").setWitnessBoss(true);
+        }
+
+    }
+
+    public void solvePuzzleSafeBox() {
+        boolean isSolved = puzzles.safeBoxCode();
+        System.out.println();
+        if (isSolved == true) {
+            personaggi.get("detective").setPuzzleSafeBox(false);//to not suggest to solve puzzle again
+            personaggi.get("detective").setSolvedSafeBox(true);
+            String safeBoxLock = puzzles.getAnswerSafeBoxCode();
+            answersReceived.add("*** Puzzle 'Safe box combination lock' is solved: ***\n   *** code: " + safeBoxLock + " ***");
+
+            if (personaggi.get("detective").isAtGrandmothers()) {
+                System.out.println("*** Now you can open the safe box and find out what is inside! ***");
+                openSafeBox();
+            } else {
+                System.out.println("*** Now you can visit " + personaggi.get("grandmother").getName() + " to go upstairs and find out what is inside the safe box! ***");
+            }
+        } else {
+            personaggi.get("detective").setSolvedSafeBox(false);
+            System.out.println("*** Come back to open the box when you solve the puzzle. In the meantime you can continue your investigation. *** ");
+        }
+        menu();
+    }
+    public void solvePuzzleBusNumber(){
+        boolean isSolved = puzzles.safeBoxCode();
+        System.out.println();
+        if (isSolved == true) {
+            personaggi.get("detective").setSolvedBusNumber(true);
+            String busNumber = puzzles.getAnswerBusNumber();
+            answersReceived.add("*** Puzzle 'Bus number' is solved: ***\n   *** code: " + busNumber + " ***");
+            System.out.println("*** Now you should inform the police and get "+personaggi.get("assistant").getName()+ " arrested! ***");
+            System.out.println("*** Let's hope that he is still in that bus! ***");
+            try {
+                Thread.sleep(1000);
+                conversations.arrestAssistant(personaggi);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else {
+            personaggi.get("detective").setSolvedSafeBox(false);
+            System.out.println("*** This is the last riddle to solve! Hurry up or "+personaggi.get("assistant").getName()+" will run away! *** ");
+        }
+        menu();
+    }
+
     @Override
-    public void solvePuzzle() {
-        if (personaggi.get("detective").isPuzzleLocker()) {
+    public void solvePuzzles() {
+        if (personaggi.get("detective").isPuzzleLocker() || personaggi.get("detective").isPuzzleWhoTellsTruth() || personaggi.get("detective").isPuzzleSafeBox()) {
             System.out.println();
             System.out.println("--------------------------------------------");
             System.out.println("*** Choose a puzzle ***");
-           boolean isSolved=false;
+            boolean isSolved = false;
 
             //puzzle with code locker
-            if (personaggi.get("detective").isPuzzleLocker()) {
+            if (personaggi.get("detective").isPuzzleLocker()&&personaggi.get("detective").isSolvedGarageLocker() == false) {
                 System.out.println("G -> Garage door locker: find the missing number");
             }
-            if (personaggi.get("detective").isPuzzleWhoTellsTruth()){
-                System.out.println("W -> Who tells the truth: find the witness" );
+            if (personaggi.get("detective").isPuzzleWhoTellsTruth()&&personaggi.get("detective").isSolvedWhoTellsTruth() == false) {
+                System.out.println("W -> Who tells the truth: find the witness");
 
             }
-            if (personaggi.get("detective").isPuzzleSafeBox()){
-                System.out.println("S-> Safe box combination lock" );
+            if (personaggi.get("detective").isPuzzleSafeBox() && personaggi.get("detective").isSolvedSafeBox() == false) {
+                System.out.println("S-> Safe box combination lock");
 
+            }
+            if (personaggi.get("detective").isPuzzleLaptopPassword() && personaggi.get("detective").isSolvedLaptopPassword()== false) {
+                System.out.println("L-> Laptop password");
+
+            }
+            if (personaggi.get("detective").isPuzzleDecodeMessage() && personaggi.get("detective").isSolvedMessage()== false) {
+                System.out.println("D-> Decode message");
+
+            }
+            if (personaggi.get("detective").isPuzzleClock() && personaggi.get("detective").isSolvedClock()== false) {
+                System.out.println("C-> Clock");
+            }
+            if (personaggi.get("detective").isSolvedClock() && personaggi.get("detective").isSolvedBusNumber()== false) {
+                System.out.println("B-> Bus number");
             }
             System.out.println("Any other input -> Go back to the menu");
-            String answerLockerCode="";
-            String answerWhoTellsTruth="";
+            String answerLockerCode = "";
+            String answerWhoTellsTruth = "";
             String choice = "";
             System.out.println();
             System.out.println("*** Input your choice, a number from 1 to 5 ***");
-            choice = scanner.next();
-            if (choice.equals("G")&&personaggi.get("detective").isPuzzleLocker()) {
-                isSolved=puzzles.lockerCode();
-                if (isSolved==true){
-                    String codePuzzleLocker= puzzles.getAnswerPuzzleLocker();
-                    answersReceived.add("Puzzle 'Locker code' solved:\n"+codePuzzleLocker);
-                    personaggi.get("detective").setCanOpenGarage(true);
-                }
-            }else if (choice.equals("W")&&personaggi.get("detective").isPuzzleWhoTellsTruth()){
-                isSolved=puzzles.whoTellsTruth();
-                System.out.println();
-                if (isSolved==true){
-                    System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-                    System.out.println(personaggi.get("detective").getName()+": So tell me what you know.");
-                    System.out.println("BEN: "+conversations.getWitnessBoss());
-                    System.out.println(personaggi.get("detective").getName()+": Ok, thank you.");
-                    answersReceived.add("BEN: "+conversations.getWitnessBoss());
-                    personaggi.get("detective").setWitnessBoss(true);
-                }
+            choice = scanner.next().toUpperCase();
+            if (choice.equals("G") && personaggi.get("detective").isPuzzleLocker()) {
+                solvePuzzleLockerCode();
+            } else if (choice.equals("W") && personaggi.get("detective").isPuzzleWhoTellsTruth()) {
+                solvePuzzleWhoTellsTruth();
 
-
-            } else if (choice.equals("S")&&personaggi.get("detective").isPuzzleSafeBox()){
-                isSolved=puzzles.safeBoxCode();
-                System.out.println();
-                if (isSolved==true){
-                    String safeBoxLock= puzzles.getAnswerSafeBoxCode();
-                    answersReceived.add("Puzzle 'Safe box combination lock' solved:\n"+safeBoxLock);
-                    personaggi.get("detective").setCanOpenGarage(true);
-                }
-            } else {
-                menu();
+            } else if (choice.equals("S") && personaggi.get("detective").isPuzzleSafeBox()) {
+                solvePuzzleSafeBox();
+            } else if (choice.equals("L") && personaggi.get("detective").isPuzzleLaptopPassword()){
+                solveLaptopPassword();
+            } else if (choice.equals("D") && personaggi.get("detective").isPuzzleDecodeMessage()){
+                readMessage();
+            } else if (choice.equals("C") && personaggi.get("detective").isPuzzleClock()){
+                solvePuzzleClock();
+            } else if (choice.equals("B") && personaggi.get("detective").isSolvedClock()){
+                solvePuzzleBusNumber();
+            }
+            else {
+                System.out.println("*** Input error for puzzle choice, try again ***");
             }
         } else {
-            System.out.println("You don't have any puzzles to solve for now.");
+            System.out.println("*** You don't have any puzzles to solve for now. ***");
             menu();
         }
 
@@ -843,14 +1100,22 @@ public class CrimeTime implements CanCrimeTime {
         System.out.println("xx,xx,xx,xx,xx,xx -> Insert the code");
         System.out.println("L -> Try later");
         String inputCode = scanner.next().toUpperCase();
-        if (inputCode.equals("61,52,63,94,46,18")) {
+        if (inputCode.equals(puzzles.getCodeGarage())) {
             System.out.println("Congratulations! The door is unlocked! You can enter now.");
-            personaggi.get("detective").setGarageUnlocked(true);
-        } else if (inputCode.equals("61,52,63,94,46,18")) {
+            personaggi.get("detective").setActionBoss(true);
+            String foundPainting = conversations.getEnterGarage()[0];
+            System.out.println(foundPainting);
+            String painting = conversations.getEnterGarage()[1];
+            evidence.add(painting);
             menu();
         } else {
             System.out.println("Sorry, the code is not correct. Try again.");
+            menu();
         }
+
+    }
+
+    public void enterGarage() {
 
     }
 
