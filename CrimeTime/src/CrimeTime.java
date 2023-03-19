@@ -73,6 +73,7 @@ public class CrimeTime implements CanCrimeTime {
         boolean flag5 = false;
         boolean flag6 = false;
         boolean flag7 = false;
+        boolean flag8 = false;
         System.out.println();
         //      if (answersReceived.size() > 0) {   }
         System.out.println("--------------------------------------------");
@@ -107,7 +108,7 @@ public class CrimeTime implements CanCrimeTime {
             flag5 = true;
         }
         //if puzzle Locker code is solved
-        if (personaggi.get("detective").isSolvedGarageLocker()) {
+        if (personaggi.get("detective").isSolvedGarageLocker()&&personaggi.get("detective").isOpenedGarage()==false) {
             System.out.println("O -> Open the garage door");
             flag6 = true;
         }
@@ -115,6 +116,10 @@ public class CrimeTime implements CanCrimeTime {
         if (personaggi.get("detective").isSolvedLaptopPassword()) {
             System.out.println("L -> Go through assistant's laptop");
             flag7 = true;
+        }
+        if (personaggi.get("detective").isPuzzleWhoTellsTruth()) {
+            System.out.println("W -> Talk to witnesses");
+            flag8 = true;
         }
 
 
@@ -148,8 +153,11 @@ public class CrimeTime implements CanCrimeTime {
             } else if ((choice.equals("O") && flag6 == true)) {
                 openGarage();
                 flag0 = true;
-            } else if ((choice.equals("O") && flag6 == true)){
+            } else if ((choice.equals("L") && flag7 == true)){
                 readMessage();
+                flag0=true;
+            }else if ((choice.equals("W") && flag8 == true)){
+                solvePuzzleWhoTellsTruth();
                 flag0=true;
             }
             else {
@@ -263,8 +271,9 @@ public class CrimeTime implements CanCrimeTime {
                     countQuestionsSister++;
                     personaggi.get("detective").setTalkedSister(true);
                     //put the answer to the ArrayList-> to use in seeNotes();
-                    answersReceived.add(givenAnswer);
-
+                    if(choice != sisterQuestions.length - 1) {
+                        answersReceived.add(givenAnswer);
+                    }
                     //delete the used question and answer from the arrays;
                     for (int i = choice; i < sisterQuestions.length - 1; i++) {
                         sisterQuestions[i] = sisterQuestions[i + 1];
@@ -283,6 +292,17 @@ public class CrimeTime implements CanCrimeTime {
                 System.out.println("*** " + personaggi.get("sister").getName() + ": has no more valuable information to share for now. ***");
                 menu();
             }
+            //when after detective heard boss speaks with collector->boolean sisterAction=true->sister shares new info
+            if (personaggi.get("detective").isActionSister()) {
+                System.out.println();
+                System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                String newWitness = personaggi.get("sister").getName() + ": " + conversations.getSisterAboutWitness();
+                System.out.println(newWitness);
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                answersReceived.add(newWitness);
+                personaggi.get("detective").setActionSister(false);
+                personaggi.get("detective").setPuzzleWhoTellsTruth(true);
+            }
         }
         //when detective reached the limit for questions
         if (countQuestionsSister >= 4) {
@@ -296,17 +316,7 @@ public class CrimeTime implements CanCrimeTime {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             menu();
         }
-        //when after detective heard boss speaks with collector->boolean sisterAction=true->sister shares new info
-        if (personaggi.get("detective").isActionSister()) {
-            System.out.println();
-            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-            String newWitness = personaggi.get("sister").getName() + ": " + conversations.getSisterAboutWitness();
-            System.out.println(newWitness);
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            answersReceived.add(newWitness);
-            personaggi.get("detective").setActionSister(false);
-            personaggi.get("detective").setPuzzleWhoTellsTruth(true);
-        }
+
         menu();
     }
 
@@ -573,6 +583,7 @@ public class CrimeTime implements CanCrimeTime {
                 System.out.println(personaggi.get("assistant").getName() + ": " + conversations.getHurryUpAssistant()[4]);
                 System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 System.out.println();
+
                 conversations.clueAssistant(personaggi);
                 personaggi.get("detective").setActionAssistant(false);
                 System.out.println("*** Here is the code, that " + personaggi.get("assistant").getName() + "gave you: ***");
@@ -604,7 +615,7 @@ public class CrimeTime implements CanCrimeTime {
                 System.out.println(conversations.getAssistantBus());
                 puzzles.busNumber();
             }
-            else {
+            else if(personaggi.get("detective").isOpenedGarage()==false) {
                 //if there are no more questions in the array
                 System.out.println();
                 // System.out.println("*** " + personaggi.get("assistant").getName() + ": has no more valuable information to share. ***");
@@ -612,6 +623,9 @@ public class CrimeTime implements CanCrimeTime {
                 System.out.println("*** You should unlock the garage and understand what assistant wanted to take from there ***");
                 personaggi.get("detective").setAtAssistants(false);
                 menu();
+            }else{
+                System.out.println();
+                System.out.println("*** You should find more information to incriminate assistant ***");
             }
         }
         //when detective reached the limit for questions
@@ -656,7 +670,7 @@ public class CrimeTime implements CanCrimeTime {
             personaggi.get("detective").setAskedGrandmother(false);
         }
         while (countQuestionsGrandmother <= 3 && personaggi.get("detective").isAskedGrandmother() == false) {
-            if (grandmotherQuestions.length > 0) {
+            if (grandmotherQuestions.length > 1||(grandmotherQuestions.length > 0 && personaggi.get("detective").isSolvedMessage())) {
                 int index = 1;
                 int askUpstairsIndex = -1;
                 System.out.println();
@@ -682,7 +696,8 @@ public class CrimeTime implements CanCrimeTime {
                     System.out.println((index++) + " -> " + grandmotherQuestions[i]);
 
                 }
-                if (personaggi.get("detective").isPuzzleSafeBox()) {
+                if ((personaggi.get("detective").isPuzzleSafeBox()||personaggi.get("detective").isSolvedSafeBox())
+                &&personaggi.get("detective").isFoundMoney()==false) {
                     askUpstairsIndex = index++;
                     System.out.println((askUpstairsIndex) + " -> " + conversations.getAskGoUpstairs());
                     length += 1;
@@ -817,9 +832,15 @@ public class CrimeTime implements CanCrimeTime {
                     System.out.println("*** Wrong input, try again ***");
                 }
             }
+            if (grandmotherQuestions.length==1 &&personaggi.get("detective").isSolvedMessage()==false){
+                System.out.println();
+                System.out.println("*** " +personaggi.get("grandmother").getName()+" has nothing to tell for now. You should get more information to ask right questions ***");
+                personaggi.get("detective").setAtGrandmothers(false);
+                menu();
+            }
         }
         //when detective reached the limit for questions
-        if (countQuestionsGrandmother > 3&&personaggi.get("detective").isPuzzleSafeBox()==false) {
+        if (countQuestionsGrandmother > 3) {
             personaggi.get("detective").setAskedGrandmother(true);
             //register the time when limit for questions was reached
             personaggi.get("detective").setTimeAskedGrandmother(LocalTime.now());
@@ -1103,6 +1124,7 @@ public void solvePuzzleClock(){
         if (inputCode.equals(puzzles.getCodeGarage())) {
             System.out.println("Congratulations! The door is unlocked! You can enter now.");
             personaggi.get("detective").setActionBoss(true);
+            personaggi.get("detective").setOpenedGarage(true);
             String foundPainting = conversations.getEnterGarage()[0];
             System.out.println(foundPainting);
             String painting = conversations.getEnterGarage()[1];

@@ -59,7 +59,7 @@ public @Data class Person {
     private boolean solvedClock;//can solve puzzleBusNumber
     private boolean solvedBusNumber;
     private boolean foundMoney;
-   // private boolean askedNextQuestion;//to control order of the questions in the array
+   private boolean openedGarage;
 
 
 

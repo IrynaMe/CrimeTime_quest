@@ -43,6 +43,11 @@ public @Data class Conversations {
                 "brought you to " + personaggi.get("assistant").getName() + "'s garage. ***");
         System.out.println("*** He has a piece of paper and he is trying to enter a code on the locker, but without success: the door doesn't open. ***");
         System.out.println("*** You decide to talk to him. ***");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println();
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         System.out.println(personaggi.get("detective").getName() + ": Hey!! What are you doing here?");
@@ -172,12 +177,12 @@ public @Data class Conversations {
                 personaggi.get("sister").getName() + ": Well, yes. " + personaggi.get("victim").getName() + ", seemed nervous and a bit secretive in the last few days, " +
                         "\nI thought it could be connected with the importance of the exhibition, but now I'm sure there was something more. ",
                 personaggi.get("sister").getName() + ": Sure, come with me. " +
-                        "\n *** There is nothing strange or suspicious in the room ***" +
-                        "\n*** but on the table there is a piece of paper with numbers: ***" +
-                        "\n*** |61 |52 |63 |94 |46 | X | *** "
+                        "\n*** There was nothing strange or suspicious in the room but... ***" +
+                        "\n***...on the victim's table you found a piece of paper with numbers: |61 |52 |63 |94 |46 | X | *** "
         };
         return sisterAnswers;
     }
+
 
     public String explainCode(HashMap<String, Person> personaggi) {
         System.out.println();

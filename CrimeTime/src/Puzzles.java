@@ -9,7 +9,7 @@ public @Data class Puzzles {
     Scanner scanner = new Scanner(System.in);
     private String codeSister = "|61 |52 |63 |94 |46 | X |\t\tpart of a code from victim's sister";
     private String codeAssistant = "| 4 | 5 | 6 | 7 | 8 | 9 |t\tpart of a code from victim's assistant";
-    private String completeCode = "| 4 | 5 | 6 | 7 | 8 | 9 |\n|61 |52 |63 |94 |46 | X |";
+    private String completeCode = "| 4 | 5 | 6 | 7 | 8 | 9 |\n  |61 |52 |63 |94 |46 | X |";
 
     private String messageToEncode = "Meet me at the gallery at midnight, it's important";
     private String answerPuzzleLocker = "18";
@@ -139,7 +139,6 @@ public @Data class Puzzles {
         System.out.println("Sam says: Ben saw someone");
         System.out.println("You know, that two of them are definitely lying. ");
         System.out.println("You have to find out who of them is the witness to interrogate him.");
-        System.out.println("Input your answer | or input M -> go back to menu");
         do {
             System.out.println("Input your answer | or input L -> to try later");
             answer = scanner.next().toUpperCase();
