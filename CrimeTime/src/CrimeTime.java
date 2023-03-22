@@ -1,10 +1,7 @@
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class CrimeTime implements CanCrimeTime {
     Scanner scanner = new Scanner(System.in);
@@ -1103,11 +1100,12 @@ public void solvePuzzleClock(){
         int index = 1;
         if (answersReceived != null) {
             System.out.println("*** These are the answers, that you wrote down: ***");
+            Collections.sort(answersReceived); // sort the list before printing
             for (String answer : answersReceived) {
                 System.out.println((index++) + " " + answer);
             }
         } else {
-            System.out.println("*** You haven't speak to anyone yet: there are no notes. ***");
+            System.out.println("*** You haven't spoken to anyone yet: there are no notes. ***");
             System.out.println("*** Visit some people and ask some questions. ***");
         }
         menu();
