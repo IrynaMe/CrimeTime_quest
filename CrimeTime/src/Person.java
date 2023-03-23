@@ -8,7 +8,7 @@ public @Data class Person {
     }
 
     private String name;
-    //registrate the time when limit of questions for 1 visit is over
+    //register the time when limit of questions for 1 visit is over
     private LocalTime timeAskedSister;
     private LocalTime timeAskedBoss;
     private LocalTime timeAskedAssistant;
@@ -24,16 +24,16 @@ public @Data class Person {
     //talkSister&&talkBoss->possible to visit assistant
     private boolean talkedSister;
     private boolean talkedBoss;
-    //  private boolean canGoRoomAssistant;
+
     //unlock options
     private boolean canMeetGrandmother;
-    //private boolean canOpenGarage;
+
     private boolean witnessBoss; //after solved puzzle Who tells truth
-    //private boolean moneyAssistant;
+
     private boolean messageAssistant;
     private boolean arrestedBoss;// after arrested Boss can visit assistant and find laptopCode
-    private boolean atGrandmothers;//to see from where detective solves puzzle
-    private boolean atAssistants;
+    private boolean atGrandmothers;//to see from where detective solves puzzle-> to go back to menu or continue in method
+    private boolean atAssistants;//to see from where detective solves puzzle-> to go back to menu or continue in method
 
     //after array with questions is empty, a person takes action, that gives a clue
     private boolean actionBoss;//after garage unlocked->phone call
@@ -44,22 +44,21 @@ public @Data class Person {
     //unlock puzzles to solve
     private boolean codeFromSister;//after last question in array sisterQuestions
     private boolean codeFromAssistant;//after detective finished questions in array assistantQuestions and follows him to garage
-    //private boolean garageUnlocked;//after that bossAction
+
     private boolean puzzleLocker;//after detective has 2 pieces of instruction->CodeFromSister+codeFromAssistant
     private boolean puzzleWhoTellsTruth;//after boss talks with collector and detective visits sister
     private boolean puzzleSafeBox;//detective asks grandmother to see assistant's room
     private boolean puzzleLaptopPassword;//after detective gets arrested
     private boolean puzzleDecodeMessage;//after solving laptop password
-    private boolean puzzleClock;
-    private boolean solvedSafeBox;
-    private boolean solvedGarageLocker;
-    private boolean solvedLaptopPassword;
-   // private boolean solvedWhoTellsTruth;
+    private boolean puzzleClock;//after decoding message
+    private boolean solvedSafeBox;//can open box and find money
+    private boolean solvedGarageLocker;//can open garage
+    private boolean solvedLaptopPassword;//can see message
     private boolean solvedMessage;//after readMessage -> grandmother remembers about the clock
     private boolean solvedClock;//can solve puzzleBusNumber
-    private boolean solvedBusNumber;
-    private boolean foundMoney;
-   private boolean openedGarage;
+    private boolean solvedBusNumber;//go arrest assistant
+    private boolean foundMoney;// a flag to not open safe box again
+   private boolean openedGarage;//after that can go to boss if all array questions are done
 
 
 

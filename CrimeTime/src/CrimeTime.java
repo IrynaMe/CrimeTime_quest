@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
@@ -806,7 +806,7 @@ public String[] deleteAnswers(int choice,String[] answers){
                 }
             }
 
-            if (grandmotherQuestions.length==1 &&personaggi.get("detective").isSolvedMessage()==false &&personaggi.get("detective").isFoundMoney()==true){
+            if (grandmotherQuestions.length==1 &&personaggi.get("detective").isSolvedMessage()==false &&personaggi.get("detective").isFoundMoney()){
                 System.out.println();
                 System.out.println("*** " +personaggi.get("grandmother").getName()+" has nothing to tell you for now. You should get more information to ask right questions ***");
                 personaggi.get("detective").setAtGrandmothers(false);
@@ -832,10 +832,7 @@ public String[] deleteAnswers(int choice,String[] answers){
         menu();
     }
 
-    @Override
-    public void talkPerson() {
 
-    }
 
     public void openSafeBox() {
         System.out.println("*** You set the code and opened the box. ***");
@@ -1045,23 +1042,6 @@ public String[] deleteAnswers(int choice,String[] answers){
 
     }
 
-    @Override
-    public void goGallery() {
-
-    }
-
-
-    @Override
-    public void goCollector() {
-
-    }
-
-
-    @Override
-    public void goVictim() {
-
-    }
-
 
     @Override
     public void seeEvidence() {
@@ -1124,12 +1104,5 @@ public String[] deleteAnswers(int choice,String[] answers){
 
     }
 
-    public void enterGarage() {
 
-    }
-
-    @Override
-    public void distractPolice() {
-
-    }
 }
