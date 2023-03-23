@@ -1,6 +1,9 @@
 import lombok.Data;
 
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -8,7 +11,7 @@ import java.util.Scanner;
 public @Data class Puzzles {
     Scanner scanner = new Scanner(System.in);
     private String codeSister = "|61 |52 |63 |94 |46 | X |\t\tpart of a code from victim's sister";
-    private String codeAssistant = "| 4 | 5 | 6 | 7 | 8 | 9 |t\tpart of a code from victim's assistant";
+    private String codeAssistant = "| 4 | 5 | 6 | 7 | 8 | 9 |\t\tpart of a code from victim's assistant";
     private String completeCode = "| 4 | 5 | 6 | 7 | 8 | 9 |\n  |61 |52 |63 |94 |46 | X |";
 
     private String messageToEncode = "Meet me at the gallery at midnight, it's important";
@@ -41,20 +44,59 @@ public @Data class Puzzles {
         return encrypted;
     }
 
+    public boolean decodeMessage2() { //buffered reared
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String answer = "";
+        boolean isSolved = false;
+        System.out.println("*** Checking " + "'s laptop, you found a message, that he sent to "
+                + " on the day of the murder. ***");
+        System.out.println("*** The message is encoded, here it is: ***");
+        System.out.println(caesarCipher(messageToEncode));
+        System.out.println("*** Can you decode it? ***");
+
+        do {
+            System.out.println("*** Input your answer, avoid adding unnecessary white spaces or punctuation marks | or input L -> to try later ***");
+            try {
+                answer = reader.readLine().trim().toUpperCase();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (!answer.equals(messageToEncode.trim().toUpperCase())&&!answer.equals("L")) {
+                System.out.println("*** Sorry, the answer is not correct ***" );
+            }
+        } while (!answer.equals("L") && !answer.equals(messageToEncode.toUpperCase()));
+        if (answer.equals(messageToEncode.toUpperCase())) {
+            isSolved = true;
+            System.out.println("*** Congratulations! You solved the puzzle! ***");
+            System.out.println("*** The message is: "+messageToEncode+" ***");
+
+        } else {
+            isSolved = false;
+            System.out.println("*** See you next time! ***");
+        }
+        return isSolved;
+    }
+
+
     public boolean decodeMessage(HashMap <String, Person> personaggi) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println();
         String answer = "";
         boolean isSolved = false;
-        System.out.println("*** Checking " + personaggi.get("assistant").getName() + "'s laptop, you found a message, that he sent to"
+        System.out.println("*** Checking " + personaggi.get("assistant").getName() + "'s laptop, you found a message, that he sent to "
                 + personaggi.get("victim").getName() + " on the day of the murder. ***");
         System.out.println("*** The message is encoded, here it is: ***");
         System.out.println(caesarCipher(messageToEncode));
         System.out.println("*** Can you decode it? ***");
-        System.out.println("*** Insert your answer, avoid adding unnecessary white spaces or punctuation marks: | or insert M -> go back to menu ***");
+
         do {
-            System.out.println("Input your answer | or input L -> to try later");
-            answer = scanner.next().toUpperCase();
-            if (!answer.equals(messageToEncode.toUpperCase())) {
+            System.out.println("*** Input your answer, avoid adding unnecessary white spaces or punctuation marks | or input L -> to try later ***");
+            try {
+                answer = reader.readLine().trim().toUpperCase();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (!answer.equals(messageToEncode.trim().toUpperCase())&&!answer.equals("L")) {
                 System.out.println("*** Sorry, the answer is not correct ***" );
             }
         } while (!answer.equals("L") && !answer.equals(messageToEncode.toUpperCase()));
@@ -111,7 +153,7 @@ public @Data class Puzzles {
         do {
             System.out.println("Input your answer | or input L -> to try later");
             answer = scanner.next().toUpperCase();
-            if (!answer.equals(answerPuzzleLocker)) {
+            if (!answer.equals("L") && !answer.equals(answerPuzzleLocker)){
                 System.out.println("Sorry, the answer is not correct");
             }
         } while (!answer.equals("L") && !answer.equals(answerPuzzleLocker));
@@ -139,13 +181,14 @@ public @Data class Puzzles {
         System.out.println("Sam says: Ben saw someone");
         System.out.println("You know, that two of them are definitely lying. ");
         System.out.println("You have to find out who of them is the witness to interrogate him.");
+
         do {
             System.out.println("Input your answer | or input L -> to try later");
             answer = scanner.next().toUpperCase();
-            if (!answer.equals(answerPuzzleWhoTellsTruth)) {
+            if (!answer.equals("L")&& !answer.equals(answerPuzzleWhoTellsTruth)) {
                 System.out.println("Sorry, the answer is not correct");
             }
-        } while (!answer.equals("L") || !answer.equals(answerPuzzleWhoTellsTruth));
+        } while (!answer.equals("L")&& !answer.equals(answerPuzzleWhoTellsTruth));
         if (answer.equals(answerPuzzleWhoTellsTruth)) {
             isSolved = true;
             System.out.println("Congratulations! You solved the puzzle!");

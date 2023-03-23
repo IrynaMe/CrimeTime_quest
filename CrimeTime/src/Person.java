@@ -28,7 +28,7 @@ public @Data class Person {
     //unlock options
     private boolean canMeetGrandmother;
     //private boolean canOpenGarage;
-    private boolean witnessBoss;
+    private boolean witnessBoss; //after solved puzzle Who tells truth
     //private boolean moneyAssistant;
     private boolean messageAssistant;
     private boolean arrestedBoss;// after arrested Boss can visit assistant and find laptopCode
@@ -54,12 +54,13 @@ public @Data class Person {
     private boolean solvedSafeBox;
     private boolean solvedGarageLocker;
     private boolean solvedLaptopPassword;
-    private boolean solvedWhoTellsTruth;
+   // private boolean solvedWhoTellsTruth;
     private boolean solvedMessage;//after readMessage -> grandmother remembers about the clock
     private boolean solvedClock;//can solve puzzleBusNumber
     private boolean solvedBusNumber;
     private boolean foundMoney;
    private boolean openedGarage;
+
 
 
 

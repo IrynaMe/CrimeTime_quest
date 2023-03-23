@@ -30,7 +30,7 @@ public @Data class Conversations {
             //next ->if all other questions are done
             "My apologies, I have and important call, you should leave.",
     };
-    private String sisterAboutWitness = "Oh, hello, it's good that you are here, I was just going to all you..." +
+    private String sisterAboutWitness = "It's good that you are here, I was just going to all you..." +
             "\n...Three men have just come to me, they said that they didn't want to go to the police, " +
             "\nbut they had information for you regarding the murder. " +
             "\nThey told me that you could often find them near the gallery, on the opposite side of the road.";
@@ -40,7 +40,7 @@ public @Data class Conversations {
         System.out.println("*** You decide to follow " + personaggi.get("assistant").getName() + " and see what he is going to do. ***");
         System.out.println();
         System.out.println("*** " + personaggi.get("assistant").getName() +
-                "brought you to " + personaggi.get("assistant").getName() + "'s garage. ***");
+                " brought you to " + personaggi.get("assistant").getName() + "'s garage. ***");
         System.out.println("*** He has a piece of paper and he is trying to enter a code on the locker, but without success: the door doesn't open. ***");
         System.out.println("*** You decide to talk to him. ***");
         try {
@@ -99,11 +99,11 @@ public @Data class Conversations {
         System.out.println("...I heard your conversation with the collector on the phone. The collector, that you don't know, according to your words... ");
         System.out.println("...So, I think that " + personaggi.get("victim").getName() + "found out about the forgery, moreover, she had got evidence...");
         System.out.println("...And you killed her to silence her! ");
-        System.out.println(personaggi.get("boss").getName() + ": Ok, you are right about the forgery, but I'm not a killer. And what about the picture?...");
+        System.out.println(personaggi.get("boss").getName() + ": Ok, you are right about the forgery, but I didn't kill her! And what about the picture?...");
         System.out.println("...Did your witness see that I was carrying the picture?");
         System.out.println(personaggi.get("detective").getName() + ": No, but I will find explanation to that...");
         System.out.println(personaggi.get("boss").getName() + ": The explanation is that someone was there before me!");
-        System.out.println(personaggi.get("detective").getName() + ": We'll see. No it's time to go to the police.");
+        System.out.println(personaggi.get("detective").getName() + ": We'll see. Now it's time to go to the police.");
         System.out.println();
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println();
