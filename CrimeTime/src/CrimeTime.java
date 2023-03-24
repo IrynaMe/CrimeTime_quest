@@ -109,7 +109,7 @@ public class CrimeTime implements CanCrimeTime {
             flag6 = true;
         }
         //if puzzle Laptop is solved
-        if (personaggi.get("detective").isSolvedLaptopPassword()) {
+        if (personaggi.get("detective").isSolvedLaptopPassword()&&personaggi.get("detective").isSolvedMessage()==false) {
             System.out.println("L -> Go through assistant's laptop");
             flag7 = true;
         }
@@ -617,7 +617,7 @@ public class CrimeTime implements CanCrimeTime {
                 readMessage();
             } else if (personaggi.get("detective").isSolvedClock() && personaggi.get("detective").isSolvedBusNumber() == false) {
                 System.out.println(conversations.getAssistantBus());
-                puzzles.busNumber();
+                solvePuzzleBusNumber();
             } else if (personaggi.get("detective").isOpenedGarage() == false) {
                 //if there are no more questions in the array
                 System.out.println();
@@ -961,8 +961,9 @@ public class CrimeTime implements CanCrimeTime {
         } else {
             personaggi.get("detective").setSolvedSafeBox(false);
             System.out.println("*** This is the last riddle to solve! Hurry up or " + personaggi.get("assistant").getName() + " will run away! *** ");
+            menu();
         }
-        menu();
+
     }
 
     @Override
