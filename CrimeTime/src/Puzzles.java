@@ -23,7 +23,7 @@ public @Data class Puzzles {
 
     private String answerPuzzleWhoTellsTruth = "BEN";
     private String answerSafeBoxCode = "042";
-    private String answerBusNumber="185";
+    private String answerBusNumber = "185";
 
     public String caesarCipher(String message) {
         String encrypted = "";
@@ -61,14 +61,14 @@ public @Data class Puzzles {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            if (!answer.equals(messageToEncode.trim().toUpperCase())&&!answer.equals("L")) {
-                System.out.println("*** Sorry, the answer is not correct ***" );
+            if (!answer.equals(messageToEncode.trim().toUpperCase()) && !answer.equals("L")) {
+                System.out.println("*** Sorry, the answer is not correct ***");
             }
         } while (!answer.equals("L") && !answer.equals(messageToEncode.toUpperCase()));
         if (answer.equals(messageToEncode.toUpperCase())) {
             isSolved = true;
             System.out.println("*** Congratulations! You solved the puzzle! ***");
-            System.out.println("*** The message is: "+messageToEncode+" ***");
+            System.out.println("*** The message is: " + messageToEncode + " ***");
 
         } else {
             isSolved = false;
@@ -78,7 +78,7 @@ public @Data class Puzzles {
     }
 
 
-    public boolean decodeMessage(HashMap <String, Person> personaggi) {
+    public boolean decodeMessage(HashMap<String, Person> personaggi) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println();
         String answer = "";
@@ -96,14 +96,14 @@ public @Data class Puzzles {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            if (!answer.equals(messageToEncode.trim().toUpperCase())&&!answer.equals("L")) {
-                System.out.println("*** Sorry, the answer is not correct ***" );
+            if (!answer.equals(messageToEncode.trim().toUpperCase()) && !answer.equals("L")) {
+                System.out.println("*** Sorry, the answer is not correct ***");
             }
         } while (!answer.equals("L") && !answer.equals(messageToEncode.toUpperCase()));
         if (answer.equals(messageToEncode.toUpperCase())) {
             isSolved = true;
             System.out.println("*** Congratulations! You solved the puzzle! ***");
-            System.out.println("*** The message is: "+messageToEncode+" ***");
+            System.out.println("*** The message is: " + messageToEncode + " ***");
 
         } else {
             isSolved = false;
@@ -153,7 +153,7 @@ public @Data class Puzzles {
         do {
             System.out.println("Input your answer | or input L -> to try later");
             answer = scanner.next().toUpperCase();
-            if (!answer.equals("L") && !answer.equals(answerPuzzleLocker)){
+            if (!answer.equals("L") && !answer.equals(answerPuzzleLocker)) {
                 System.out.println("Sorry, the answer is not correct");
             }
         } while (!answer.equals("L") && !answer.equals(answerPuzzleLocker));
@@ -185,10 +185,10 @@ public @Data class Puzzles {
         do {
             System.out.println("Input your answer | or input L -> to try later");
             answer = scanner.next().toUpperCase();
-            if (!answer.equals("L")&& !answer.equals(answerPuzzleWhoTellsTruth)) {
+            if (!answer.equals("L") && !answer.equals(answerPuzzleWhoTellsTruth)) {
                 System.out.println("Sorry, the answer is not correct");
             }
-        } while (!answer.equals("L")&& !answer.equals(answerPuzzleWhoTellsTruth));
+        } while (!answer.equals("L") && !answer.equals(answerPuzzleWhoTellsTruth));
         if (answer.equals(answerPuzzleWhoTellsTruth)) {
             isSolved = true;
             System.out.println("Congratulations! You solved the puzzle!");
@@ -234,8 +234,8 @@ public @Data class Puzzles {
 
     public boolean laptopPassword() {
         System.out.println("*** Password reminder: ***");
-        String answer="";
-        boolean isSolved=false;
+        String answer = "";
+        boolean isSolved = false;
         //draw grid with letters
         int gridSize = 3; // Number of squares in each row/column
         int subSquareSize = 1; // Number of subsquares in each square
@@ -293,15 +293,15 @@ public @Data class Puzzles {
         return isSolved;
     }
 
-    public boolean busNumber(){
+    public boolean busNumber() {
         System.out.println("*** Number of the bus to take = A.  ***");
-        String answer="";
-        boolean isSolved=false;
-        for (int i=0; i<3;i++) {
+        String answer = "";
+        boolean isSolved = false;
+        for (int i = 0; i < 3; i++) {
             System.out.println("      *      #      .  ");
             System.out.println("A    ***    ###    ... ");
             System.out.println("    *****  #####  .....");
-            if (i<2){
+            if (i < 2) {
                 System.out.println("+");
             }
 

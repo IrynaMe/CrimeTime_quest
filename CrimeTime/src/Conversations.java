@@ -35,6 +35,54 @@ public @Data class Conversations {
             "\nbut they had information for you regarding the murder. " +
             "\nThey told me that you could often find them near the gallery, on the opposite side of the road.";
 
+    public void theEnd(HashMap<String, Person> personaggi){
+        System.out.println(personaggi.get("boss").getName()+", "+personaggi.get("collector").getName()+", "+personaggi.get("assistant").getName()+" are locked in prison...");
+        System.out.println();
+        System.out.println("                _______________________________________________");
+        System.out.println("                |              |              |              |");
+        System.out.println("                |       O      |       O      |      O       |");
+        System.out.println("                |      /|\\     |      /|\\     |     /|\\      |");
+        System.out.println("                |      / \\     |      / \\     |     / \\      |");
+        System.out.println("                |     BOSS     |   ASSISTANT  |  COLLECTOR   |");
+        System.out.println("                -----------------------------------------------");
+        System.out.println();
+        System.out.println();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println();
+        System.out.println("Detective received a reward from a Mayor");
+        System.out.println();
+        System.out.println("                              O       O ");
+        System.out.println("                              |== *==(|");
+        System.out.println("                              |\\     /|");
+        System.out.println();
+        System.out.println();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println();
+        System.out.println("Victim rests in peace, her sister often visits her and brings flowers");
+        System.out.println();
+        System.out.println("                                   .             ");
+        System.out.println("                                  -+-            ");
+        System.out.println("                                   |    *  O  ");
+        System.out.println("                                  ___    \\=|  ");
+        System.out.println("                                /_____\\   /|    ");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("                                    *** THE END ***");
+    }
     public void clueAssistant(HashMap<String, Person> personaggi) {
         System.out.println("*** Hmm..." + personaggi.get("assistant").getName() + "'s grandmother told that he never comes home during the day... ***");
         System.out.println("*** You decide to follow " + personaggi.get("assistant").getName() + " and see what he is going to do. ***");
@@ -300,26 +348,27 @@ public @Data class Conversations {
         };
         return grandmotherAnswers;
     }
+
     public void arrestAssistant(HashMap<String, Person> personaggi) throws InterruptedException {
         System.out.println("*** Together with the police you reached the bus ***");
-        System.out.println("*** "+personaggi.get("assistant").getName()+ "was still inside it, the police arrested him and brought to the police station. He had 10000Eur in his backpack ***");
+        System.out.println("*** " + personaggi.get("assistant").getName() + "was still inside it, the police arrested him and brought to the police station. He had 10000Eur in his backpack ***");
         System.out.println("*** During the interrogation he told the truth: ***");
         Thread.sleep(2000);
         System.out.println();
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.println(personaggi.get("assistant").getName()+ ": I was not going to kill "+personaggi.get("victim").getName()+" ... I just panicked");
-        System.out.println("...A couple of days before the exhibition opening we overheard the conversation between " +personaggi.get("boss").getName()+
-                " and "+personaggi.get("collector").getName()+", the collector...");
-        System.out.println("...We decided to visit "+personaggi.get("collector").getName()+"...I was distracting him with conversation, while "+
-                personaggi.get("victim").getName()+" was searching his office... ");
-        System.out.println("... But when we were talking "+personaggi.get("collector").getName()+" guessed that i know something and suggested me big money for my silence...");
+        System.out.println(personaggi.get("assistant").getName() + ": I was not going to kill " + personaggi.get("victim").getName() + " ... I just panicked");
+        System.out.println("...A couple of days before the exhibition opening we overheard the conversation between " + personaggi.get("boss").getName() +
+                " and " + personaggi.get("collector").getName() + ", the collector...");
+        System.out.println("...We decided to visit " + personaggi.get("collector").getName() + "...I was distracting him with conversation, while " +
+                personaggi.get("victim").getName() + " was searching his office... ");
+        System.out.println("... But when we were talking " + personaggi.get("collector").getName() + " guessed that i know something and suggested me big money for my silence...");
         System.out.println("... I wasn't able to reject his proposal...He gave me 10000 and promised twice more in a couple of weeks...");
-        System.out.println("But "+personaggi.get("victim").getName()+" found another fake painting in "+personaggi.get("collector").getName()
-                +"'s office...we hid it in her garage...She was going to discuss it with "+
-                personaggi.get("boss").getName()+" before going to the police...");
-        System.out.println("...I tried to talk to "+personaggi.get("victim").getName()+", I wrote her a message to meet and persuade her, but she was insisting to go to the police, saying that I should also confess...");
-        System.out.println("...So, I tired her to the chair and make her give me the code from the garage to get rid of the evidence, then we heard a noise outside and "+
-                        personaggi.get("victim").getName()+" started to scream..." );
+        System.out.println("But " + personaggi.get("victim").getName() + " found another fake painting in " + personaggi.get("collector").getName()
+                + "'s office...we hid it in her garage...She was going to discuss it with " +
+                personaggi.get("boss").getName() + " before going to the police...");
+        System.out.println("...I tried to talk to " + personaggi.get("victim").getName() + ", I wrote her a message to meet and persuade her, but she was insisting to go to the police, saying that I should also confess...");
+        System.out.println("...So, I tired her to the chair and make her give me the code from the garage to get rid of the evidence, then we heard a noise outside and " +
+                personaggi.get("victim").getName() + " started to scream...");
         System.out.println("...I panicked and hit her head with a bronze statuette, that was on the table...");
         System.out.println("...Then I took the painting and run away...");
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -327,7 +376,7 @@ public @Data class Conversations {
         System.out.println();
         Thread.sleep(2000);
         System.out.println("*** Congratulations!! You solved a murder case and brought the killer to justice! ***");
-        System.out.println("*** THE END ***");
+
     }
 
     private String[] enterGarage = {
@@ -354,13 +403,14 @@ public @Data class Conversations {
     private String findLaptop = "*** You came to visit victim's assistant, but there is nobody in his office. On the desk you noticed a laptop" +
             "\n and decided to check if you could find any useful information there." +
             "\n But the laptop has a password. You inserted a couple of simple variations and a password reminder appeared. ***";
-private String talkPolice="***  You decided to inform the police. ***" +
-        "\n"+
-        "\n*** You told the police about money, that you found and about the assistant's fake alibi. ***" +
-        "\n*** The police told you, that they found the stolen painting, it was damaged and thrown away in a garbage bin in the park near the gallery..." +
-        "\n... which proves that the painting was not the real motive for the murder. " +
-        "\n*** Now you should help the police to find the victim's assistant ***";
-private String assistantBus="*** There is nobody in the assistant's office. *** " +
-        "\n*** On the floor you see a piece of paper, that may give a clue... ***";
+    private String talkPolice = "***  You decided to inform the police. ***" +
+            "\n" +
+            "\n*** You told the police about money, that you found and about the assistant's fake alibi. ***" +
+            "\n*** The police told you, that they found the stolen painting, it was damaged and thrown away in a garbage bin in the park near the gallery..." +
+            "\n... which proves that the painting was not the real motive for the murder. " +
+            "\n*** Now you should help the police to find the victim's assistant ***";
+    private String assistantBus = "*** There is nobody in the assistant's office. *** " +
+            "\n*** On the floor you see a piece of paper, that may give a clue... ***";
+
 
 }//

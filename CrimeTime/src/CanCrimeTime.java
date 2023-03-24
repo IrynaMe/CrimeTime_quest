@@ -4,17 +4,13 @@ public interface CanCrimeTime {
     public void startGame();
 
 
-
     void solvePuzzles();
-
 
 
     void goAssistant(LocalTime time);
 
 
-
     void goBoss(LocalTime time);
-
 
 
     void goSister(LocalTime time);
@@ -23,8 +19,6 @@ public interface CanCrimeTime {
     void seeEvidence();
 
     void seeNotes();
-
-
 
 
 }
